@@ -5,13 +5,13 @@ import java.sql.Date;
 public class Client {
 
 	private String clientId;
-	
+
 	private String customerType;
-	
+
 	private String idType;
-	
+
 	private Date activationDate;
-	
+
 	private Double totalDiscount;
 
 	public String getClientId() {
@@ -53,6 +53,5 @@ public class Client {
 	public void setTotalDiscount(Double totalDiscount) {
 		this.totalDiscount = totalDiscount;
 	}
-	
-	
+
 }
