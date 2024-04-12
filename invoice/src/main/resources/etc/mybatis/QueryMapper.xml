@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+ * Rene Marco Gudmundsson Pozo
+ * Lizbeth Zorca Montanio Colque
+ -->
+<mapper namespace="gudmundsson.com.invoice.dao.MClientMapper">
+    <!-- Result Maps -->
+    <resultMap id="ClientResultMap" type="gudmundsson.com.invoice.core.Client">
+        <id     column="tipoCambio" property="tipoCambio" javaType="float"/>
+    </resultMap>
+
+    <resultMap id="SimpleQueryA11Map" type="bo.tigo.mob.k8s.discounts.core.QueryA11">
+        <id     column="clientenro"       property="clientenro"       javaType="string"/>
+        <result column="contrato"         property="contrato"         javaType="string"/>
+        <result column="linea"            property="linea"            javaType="string"/>
+        <result column="estado"           property="estado"           javaType="string"/>
+        <result column="fecha_activacion" property="fecha_activacion" javaType="java.sql.Date"/>
+    </resultMap>
+
+    <resultMap id="SimpleQueryA12Map" type="bo.tigo.mob.k8s.discounts.core.QueryA12">
+        <id     column="MF495A" property="secuencia" javaType="string"/>
+    </resultMap>
+
+    <resultMap id="SimpleQueryA13Map" type="bo.tigo.mob.k8s.discounts.core.QueryA13">
+        <id     column="MF495A" property="secuencia"  javaType="string"/>
+        <result column="MF3HA"  property="clientenro" javaType="int"/>
+        <result column="MF3GA"  property="contrato"   javaType="int"/>
+        <result column="MF47PA" property="MF47PA"     javaType="string"/>
+        <result column="MF3Y9A" property="MF3Y9A"     javaType="java.sql.Date"/>
+        <result column="REDBA"  property="REDBA"      javaType="java.sql.Date"/>
+        <result column="VL49HA" property="VL49HA"     javaType="int"/>
+        <result column="VL49IA" property="VL49IA"     javaType="int"/>
+        <result column="REDJA"  property="REDJA"      javaType="java.sql.Date"/>
+        <result column="OF19VA" property="OF19VA"     javaType="string"/>
+        <result column="OFVWA"  property="OFVWA"      javaType="int"/>
+        <result column="OF19WA" property="OF19WA"     javaType="java.sql.Date"/>
+        <result column="OF19XA" property="OF19XA"     javaType="java.sql.Date"/>
+        <result column="MF48UA" property="MF48UA"     javaType="string"/>
+        <result column="MF4GJA" property="MF4GJA"     javaType="int"/>
+        <result column="VL1WAA" property="VL1WAA"     javaType="int"/>
+        <result column="MF8CLA" property="MF8CLA"     javaType="int"/>
+        <result column="FCREA"  property="FCREA"      javaType="java.sql.Timestamp"/>
+    </resultMap>
+
+    <resultMap id="SimpleQueryA14Map" type="bo.tigo.mob.k8s.discounts.core.QueryA14">
+        <id     column="codCliente" property="codCliente" javaType="string"/>
+        <result column="ci"         property="ci"         javaType="string"/>
+        <result column="nit"        property="nit"        javaType="string"/>
+    </resultMap>
+
+    <resultMap id="SimpleQueryA15Map" type="bo.tigo.mob.k8s.discounts.core.QueryA15">
+        <id     column="OMARA" property="max_fecha_registro" javaType="java.sql.Date"/>
+    </resultMap>
+
+    <resultMap id="SimpleQueryA16Map" type="bo.tigo.mob.k8s.discounts.core.QueryA16">
+        <id     column="segmentoContrato" property="segmentoContrato"   javaType="string"/>
+        <result column="OMARA"            property="max_fecha_registro" javaType="java.sql.Date"/>
+    </resultMap>
+
+    <resultMap id="SimpleQueryA21Map" type="bo.tigo.mob.k8s.discounts.core.QueryA21">
+        <id     column="agreementId"     property="agreementId"      javaType="string"/>
+        <result column="contratos_count" property="contratos_count" javaType="int"/>
+        <result column="core"            property="core"            javaType="string"/>
+    </resultMap>
+
+    <resultMap id="SimpleQueryA22Map" type="bo.tigo.mob.k8s.discounts.core.QueryA22">
+        <id     column="docClient"       property="docClient"       javaType="string"/>
+        <result column="contratos_count" property="contratos_count" javaType="int"/>
+        <result column="core"            property="core"            javaType="string"/>
+    </resultMap>
+
+    <resultMap id="SimpleQueryA31Map" type="bo.tigo.mob.k8s.discounts.core.QueryA31">
+        <id     column="existe" property="existe" javaType="int"/>
+    </resultMap>
+
+    <!-- Queries -->
+    
+
+</mapper> 
