@@ -214,8 +214,7 @@
             </if>
             <if test="recordServiceId != null">
                AND inse_serv_serviceId = #{recordServiceId}
-            </if>
-            
+            </if>          
         </where>
     </sql>
     

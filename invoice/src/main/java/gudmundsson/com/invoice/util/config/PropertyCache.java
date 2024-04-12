@@ -53,7 +53,7 @@ public class PropertyCache {
     @Value("${spring.datasource.one.hikari.auto-commit}")
     private boolean spring_datasource_one_hikari_auto_commit;
 
-    @Bean
+//    @Bean
     void printProperties() {
         timeoutSetup = new TimeoutSetup(30, 30, 30);
         log("------------------------------------------------------------------------------------------");
