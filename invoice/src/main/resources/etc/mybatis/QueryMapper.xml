@@ -7,35 +7,216 @@
 <mapper namespace="gudmundsson.com.invoice.dao.MClientMapper">
     <!-- Result Maps -->
     <resultMap id="ClientResultMap" type="gudmundsson.com.invoice.core.Client">
-        <id     column="clientId" 		property="clientId" 	  javaType="string"/>
-        <result column="customerType"   property="customerType"   javaType="string"/>
-        <result column="idType"         property="idType"         javaType="string"/>
-        <result column="msisdn"         property="msisdn"         javaType="string"/>
-        <result column="activationDate" property="activationDate" javaType="java.sql.Date"/>
-        <result column="totalDiscount"  property="totalDiscount"  javaType="float"/>
+        <id     column="clie_clientId" 		 property="clientId" 	   javaType="string"/>
+        <result column="clie_customerType"   property="customerType"   javaType="string"/>
+        <result column="clie_idType"         property="idType"         javaType="string"/>
+        <result column="clie_msisdn"         property="msisdn"         javaType="string"/>
+        <result column="clie_activationDate" property="activationDate" javaType="java.sql.Date"/>
+        <result column="clie_totalDiscount"  property="totalDiscount"  javaType="float"/>
     </resultMap>
 
     <resultMap id="InvoiceResultMap" type="gudmundsson.com.invoice.core.Invoice">
-        <id     column="invoiceId"     property="invoiceId"       javaType="string"/>
-        <result column="billingPeriod" property="billingPeriod"   javaType="string"/>
-        <result column="totalAmount"   property="totalAmount"     javaType="float"/>
-        <result column="clie_clientId" property="client.clientId" javaType="string"/>
+        <id     column="inv_invoiceId"     property="invoiceId"       javaType="string"/>
+        <result column="inv_billingPeriod" property="billingPeriod"   javaType="string"/>
+        <result column="inv_totalAmount"   property="totalAmount"     javaType="float"/>
+        <result column="inv_clie_clientId" property="client.clientId" javaType="string"/>
     </resultMap>
 
     <resultMap id="ServiceResultMap" type="gudmundsson.com.invoice.core.Service">
-        <id     column="serviceId" 		property="serviceId" 		javaType="string"/>
-        <result column="serviceName" 	property="serviceName"   	javaType="string"/>
-        <result column="serviceAmount"  property="serviceAmount"    javaType="integer"/>
-        <result column="clie_clientId" 	property="client.clientId" 	javaType="string"/>
+        <id     column="serv_serviceId" 	property="serviceId" 		javaType="string"/>
+        <result column="serv_serviceName" 	property="serviceName"   	javaType="string"/>
+        <result column="serv_serviceAmount" property="serviceAmount"    javaType="integer"/>
+        <result column="serv_clie_clientId" property="client.clientId" 	javaType="string"/>
     </resultMap>
 
     <resultMap id="InvoiceServiceResultMap" type="gudmundsson.com.invoice.core.InvoiceService">
-        <id     column="inv_serv_id" 	property="invservId"  		 javaType="string"/>
-        <result column="invo_invoiceId" property="invoice.invoiceId" javaType="int"/>
-        <result column="serv_serviceId" property="service.serviceId" javaType="int"/>
+        <id     column="inse_inv_serv_id" 	 property="invservId"  		  javaType="string"/>
+        <result column="inse_invo_invoiceId" property="invoice.invoiceId" javaType="string"/>
+        <result column="inse_serv_serviceId" property="service.serviceId" javaType="string"/>
     </resultMap>
 
     <!-- Queries -->
+    <!-- Cliente By Id-->
+    <select id="getClientById" resultMap="ClientResultMap">
+        <![CDATA[
+            SELECT *
+              FROM client
+        ]]>
+        <where>
+               AND clie_clientId = #{objectId}
+        </where>
+    </select>
     
-
+     <!-- Invoice By Id-->
+    <select id="getInvoiceById" resultMap="InvoiceResultMap">
+        <![CDATA[
+            SELECT *
+              FROM invoice
+        ]]>
+        <where>
+               AND inv_invoiceId = #{objectId}
+        </where>
+    </select>
+    
+     <!-- Service By Id-->
+    <select id="getServiceById" resultMap="ServiceResultMap">
+        <![CDATA[
+            SELECT *
+              FROM service
+        ]]>
+        <where>
+               AND serv_serviceId = #{objectId}
+        </where>
+    </select>
+    
+     <!-- Inv_Serv By Id-->
+    <select id="getInvSerById" resultMap="InvoiceServiceResultMap">
+        <![CDATA[
+            SELECT *
+              FROM invoice_service
+        ]]>
+        <where>
+               AND inse_inv_serv_id = #{objectId}
+        </where>
+    </select>
+    
+     <!-- Cliente All-->
+    <select id="getAllClients" resultMap="ClientResultMap">
+        <![CDATA[
+            SELECT *
+              FROM (
+        ]]>
+        <include refid="sqlGetAllClients"/>
+        <![CDATA[
+                   ) AS records
+          ORDER BY clie_clientId
+        ]]>
+        <if test="limit != null">
+             LIMIT ${limit} OFFSET ${offset}
+        </if>
+    </select>
+  
+	<sql id="sqlGetAllClients">
+        <![CDATA[
+            SELECT *
+              FROM client
+        ]]>
+        <where>
+			<if test="recordCustomerType != null">
+               AND clie_customerType = #{recordCustomerType}
+            </if>
+            <if test="recordIdType != null">
+               AND clie_idType = #{recordIdType}
+            </if>
+            <if test="recordMsisdn != null">
+               AND clie_msisdn = #{recordMsisdn}
+            </if>
+            <if test="recordActivationDate != null">
+               AND clie_activationDate = #{recordActivationDate}
+            </if>
+            <if test="recordTotalDiscount != null">
+               AND clie_totalDiscount = #{recordTotalDiscount}
+            </if>
+        </where>
+    </sql>
+    
+    <!-- Invoice All-->
+    <select id="getAllInvoices" resultMap="InvoiceResultMap">
+        <![CDATA[
+            SELECT *
+              FROM (
+        ]]>
+        <include refid="sqlGetAllInvoices"/>
+        <![CDATA[
+                   ) AS records
+          ORDER BY inv_invoiceId
+        ]]>
+        <if test="limit != null">
+             LIMIT ${limit} OFFSET ${offset}
+        </if>
+    </select>
+  
+	<sql id="sqlGetAllInvoices">
+        <![CDATA[
+            SELECT *
+              FROM invoice
+        ]]>
+        <where>
+			<if test="recordBillingPeriod != null">
+               AND inv_billingPeriod = #{recordbBillingPeriod}
+            </if>
+            <if test="recordTotalAmount != null">
+               AND inv_totalAmount = #{recordTotalAmount}
+            </if>
+            <if test="recordClientId != null">
+               AND inv_clie_clientId = #{recordClientId}
+            </if>
+        </where>
+    </sql>
+    
+    <!-- Service All-->
+    <select id="getAllServices" resultMap="ServiceResultMap">
+        <![CDATA[
+            SELECT *
+              FROM (
+        ]]>
+        <include refid="sqlGetAllServices"/>
+        <![CDATA[
+                   ) AS records
+          ORDER BY serv_serviceId
+        ]]>
+        <if test="limit != null">
+             LIMIT ${limit} OFFSET ${offset}
+        </if>
+    </select>
+  
+	<sql id="sqlGetAllServices">
+        <![CDATA[
+            SELECT *
+              FROM service
+        ]]>
+        <where>
+			<if test="recordName != null">
+               AND serv_serviceName = #{recordName}
+            </if>
+            <if test="recordAmount != null">
+               AND serv_serviceAmount = #{recordAmount}
+            </if>
+            <if test="recordClientId != null">
+               AND serv_clie_clientId = #{recordClientId}
+            </if>
+        </where>
+    </sql>
+    
+    <select id="getAllInvoServ" resultMap="InvoiceServiceResultMap">
+        <![CDATA[
+            SELECT *
+              FROM (
+        ]]>
+        <include refid="sqlGetAllInvoServ"/>
+        <![CDATA[
+                   ) AS records
+          ORDER BY inse_inv_serv_id
+        ]]>
+        <if test="limit != null">
+             LIMIT ${limit} OFFSET ${offset}
+        </if>
+    </select>
+  
+	<sql id="sqlGetAllInvoServ">
+        <![CDATA[
+            SELECT *
+              FROM invoice_service
+        ]]>
+        <where>
+			<if test="recordInvoiceId != null">
+               AND inse_invo_invoiceId = #{recordInvoiceId}
+            </if>
+            <if test="recordServiceId != null">
+               AND inse_serv_serviceId = #{recordServiceId}
+            </if>
+            
+        </where>
+    </sql>
+    
 </mapper> 
