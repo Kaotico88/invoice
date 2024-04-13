@@ -4,7 +4,7 @@
  * Rene Marco Gudmundsson Pozo
  * Lizbeth Zorca Montanio Colque
  -->
-<mapper namespace="gudmundsson.com.invoice.dao.MClientMapper">
+<mapper namespace="gudmundsson.com.invoice.dao.MQueryMapper">
     <!-- Result Maps -->
     <resultMap id="ClientResultMap" type="gudmundsson.com.invoice.core.Client">
         <id     column="clie_clientId" 		 property="clientId" 	   javaType="string"/>
@@ -143,7 +143,7 @@
         ]]>
         <where>
 			<if test="recordBillingPeriod != null">
-               AND inv_billingPeriod = #{recordbBillingPeriod}
+               AND inv_billingPeriod = #{recordBillingPeriod}
             </if>
             <if test="recordTotalAmount != null">
                AND inv_totalAmount = #{recordTotalAmount}
