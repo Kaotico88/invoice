@@ -2,7 +2,7 @@ package gudmundsson.com.invoice.dto;
 
 import gudmundsson.com.invoice.core.Invoice;
 
-public class ResponseGeneralObject {
+public class ResponseObjectDto {
 
 	private Invoice invoice;
 
