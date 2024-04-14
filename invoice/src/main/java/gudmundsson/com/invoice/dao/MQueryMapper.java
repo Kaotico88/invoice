@@ -40,4 +40,14 @@ public interface MQueryMapper {
 	public List<InvoiceService> getAllInvoServ(@Param("recordInvoiceId") String recordInvoiceId,
 			@Param("recordServiceId") String recordServiceId, @Param("limit") Integer limit,
 			@Param("offset") Integer offset) throws RepositoryException;
+	
+//Aca empieza los querys que realmente pueden ayudar con el objetivo /v1/tigo/BO/invoices/:customerType/:idType/:id/:billingPeriod?invoiceId	
+
+	public Client getClientQuery(@Param("recordCustomerType") String recordCustomerType,
+			@Param("recordIdType") String recordIdType, @Param("recordClientId") String recordClientId)
+					throws RepositoryException;
+	
+	public List<Invoice> getInvoicesQuery(@Param("recordInvoiceId") String recordInvoiceId,
+			@Param("recordBillingPeriod") String recordBillingPeriod, @Param("recordClientId") String recordClientId)
+					throws RepositoryException;
 }

@@ -61,4 +61,16 @@ public class RQueryRepository {
 			Optional<String> recordServiceId, Integer limit, Integer offset) throws RepositoryException {
 		return mQueryMapper.getAllInvoServ(recordInvoiceId.orElse(null), recordServiceId.orElse(null), limit, offset);
 	}
+	
+//	Aca continua con los query que realmente pueden ayudar
+	
+	public Client getClientQuery(Optional<String> customerType, Optional<String> idtype,
+			Optional<String> clientId) throws RepositoryException{
+		return mQueryMapper.getClientQuery(customerType.orElse(null), idtype.orElse(null), clientId.orElse(null));
+	}
+	
+	public List<Invoice> getInvoicesQuery(Optional<String> invoiceId, Optional<String> billingPeriod,
+			Optional<String> clientId) throws RepositoryException{
+		return mQueryMapper.getInvoicesQuery(invoiceId.orElse(null), billingPeriod.orElse(null), clientId.orElse(null));
+	}
 }

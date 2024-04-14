@@ -36,6 +36,8 @@
     </resultMap>
 
     <!-- Queries -->
+    
+    
     <!-- Cliente By Id-->
     <select id="getClientById" resultMap="ClientResultMap">
         <![CDATA[
@@ -47,6 +49,18 @@
         </where>
     </select>
     
+    <select id="getClientQuery" resultMap="ClientResultMap">
+        <![CDATA[
+            SELECT *
+              FROM client
+        ]]>
+        <where>
+               AND clie_customerType = #{recordCustomerType}
+               AND clie_idType = #{recordIdType}
+               AND clie_clientId = #{recordClientId}
+        </where>
+    </select>
+    
      <!-- Invoice By Id-->
     <select id="getInvoiceById" resultMap="InvoiceResultMap">
         <![CDATA[
@@ -55,6 +69,19 @@
         ]]>
         <where>
                AND inv_invoiceId = #{objectId}
+        </where>
+    </select>
+    
+    <select id="getInvoiceQuery" resultMap="InvoiceResultMap">
+        <![CDATA[
+            SELECT *
+              FROM invoice i
+              LEFT JOIN client c ON c.clie_clientId = i.inv_clie_clientId
+        ]]>
+        <where>
+               AND inv_invoiceId = #{recordInvoiceId}
+               AND inv_billingPeriod = #{recordBillingPeriod}
+               AND inv_clie_clientId = #{recordClientId}
         </where>
     </select>
     

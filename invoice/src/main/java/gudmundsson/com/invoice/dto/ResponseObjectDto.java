@@ -1,18 +1,19 @@
 package gudmundsson.com.invoice.dto;
 
-import gudmundsson.com.invoice.core.Invoice;
+import gudmundsson.com.invoice.dto.core.Data;
 
 public class ResponseObjectDto {
 
-	private Invoice invoice;
+	private Data data;
 
-	public Invoice getInvoice() {
-		return invoice;
+	public Data getData() {
+		return data;
 	}
 
-	public void setInvoice(Invoice invoice) {
-		this.invoice = invoice;
+	public void setData(Data data) {
+		this.data = data;
 	}
+
 	
 	
 }
