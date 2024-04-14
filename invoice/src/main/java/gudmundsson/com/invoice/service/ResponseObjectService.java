@@ -28,11 +28,6 @@ public class ResponseObjectService {
 		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
 		responseObjectDto.setData(new Data());
 		responseObjectDto.getData().setInvoices(rQueryRepository.getInvoicesQuery(invoiceId, billingPeriod, clientId));
-		
-		
-		
-		
-		
 		return responseObjectDto;
 	}
 
