@@ -7,32 +7,32 @@
 <mapper namespace="gudmundsson.com.invoice.dao.MQueryMapper">
     <!-- Result Maps -->
     <resultMap id="ClientResultMap" type="gudmundsson.com.invoice.core.Client">
-        <id     column="clie_clientId" 		 property="clientId" 	   javaType="string"/>
-        <result column="clie_customerType"   property="customerType"   javaType="string"/>
-        <result column="clie_idType"         property="idType"         javaType="string"/>
-        <result column="clie_msisdn"         property="msisdn"         javaType="string"/>
-        <result column="clie_activationDate" property="activationDate" javaType="java.sql.Date"/>
-        <result column="clie_totalDiscount"  property="totalDiscount"  javaType="float"/>
+        <id     column="clie_client_id" 	  property="clientId" 	   javaType="string"/>
+        <result column="clie_customer_type"   property="customerType"   javaType="string"/>
+        <result column="clie_id_type"         property="idType"         javaType="string"/>
+        <result column="clie_msisdn"          property="msisdn"         javaType="string"/>
+        <result column="clie_activation_date" property="activationDate" javaType="java.sql.Date"/>
+        <result column="clie_total_discount"  property="totalDiscount"  javaType="float"/>
     </resultMap>
 
     <resultMap id="InvoiceResultMap" type="gudmundsson.com.invoice.core.Invoice">
-        <id     column="inv_invoiceId"     property="invoiceId"       javaType="string"/>
-        <result column="inv_billingPeriod" property="billingPeriod"   javaType="string"/>
-        <result column="inv_totalAmount"   property="totalAmount"     javaType="float"/>
-        <result column="inv_clie_clientId" property="client.clientId" javaType="string"/>
+        <id     column="inv_invoice_id"     property="invoiceId"       javaType="string"/>
+        <result column="inv_billing_period" property="billingPeriod"   javaType="string"/>
+        <result column="inv_total_amount"   property="totalAmount"     javaType="float"/>
+        <result column="inv_clie_client_id" property="client.clientId" javaType="string"/>
     </resultMap>
 
     <resultMap id="ServiceResultMap" type="gudmundsson.com.invoice.core.Service">
-        <id     column="serv_serviceId" 	property="serviceId" 		javaType="string"/>
-        <result column="serv_serviceName" 	property="serviceName"   	javaType="string"/>
-        <result column="serv_serviceAmount" property="serviceAmount"    javaType="integer"/>
-        <result column="serv_clie_clientId" property="client.clientId" 	javaType="string"/>
+        <id     column="serv_service_id" 	 property="serviceId" 		javaType="string"/>
+        <result column="serv_service_name" 	 property="serviceName"   	javaType="string"/>
+        <result column="serv_service_amount" property="serviceAmount"    javaType="integer"/>
+        <result column="serv_clie_client_id" property="client.clientId" 	javaType="string"/>
     </resultMap>
 
     <resultMap id="InvoiceServiceResultMap" type="gudmundsson.com.invoice.core.InvoiceService">
-        <id     column="inse_inv_serv_id" 	 property="invservId"  		  javaType="string"/>
-        <result column="inse_invo_invoiceId" property="invoice.invoiceId" javaType="string"/>
-        <result column="inse_serv_serviceId" property="service.serviceId" javaType="string"/>
+        <id     column="inse_inv_serv_id" 	  property="invservId"  		  javaType="string"/>
+        <result column="inse_invo_invoice_id" property="invoice.invoiceId" javaType="string"/>
+        <result column="inse_serv_service_id" property="service.serviceId" javaType="string"/>
     </resultMap>
 
     <!-- Queries -->
@@ -45,7 +45,7 @@
               FROM client
         ]]>
         <where>
-               AND clie_clientId = #{objectId}
+               AND clie_client_id = #{objectId}
         </where>
     </select>
     
@@ -55,9 +55,9 @@
               FROM client
         ]]>
         <where>
-               AND clie_customerType = #{recordCustomerType}
-               AND clie_idType = #{recordIdType}
-               AND clie_clientId = #{recordClientId}
+               AND clie_customer_type = #{recordCustomerType}
+               AND clie_id_type = #{recordIdType}
+               AND clie_client_id = #{recordClientId}
         </where>
     </select>
     
@@ -68,22 +68,39 @@
               FROM invoice
         ]]>
         <where>
-               AND inv_invoiceId = #{objectId}
+               AND inv_invoice_id = #{objectId}
         </where>
     </select>
-    
+     <!-- Invoice By Id esta parte esta en modificacion -->
     <select id="getInvoiceQuery" resultMap="InvoiceResultMap">
         <![CDATA[
-            SELECT *
+            SELECT i.inv_invoice_id, 
+            	   i.inv_billing_period, 
+            	   c.clie_customer_type, 
+            	   c.clie_id_type, 
+            	   c.clie_client_id 
               FROM invoice i
               LEFT JOIN client c ON c.clie_clientId = i.inv_clie_clientId
         ]]>
         <where>
-               AND inv_invoiceId = #{recordInvoiceId}
-               AND inv_billingPeriod = #{recordBillingPeriod}
-               AND inv_clie_clientId = #{recordClientId}
+			<if test="recordInvoiceId != null and recordInvoiceId != ''">
+               AND i.inv_invoice_id = #{recordInvoiceId}
+            </if>
+            <if test="recordBillingPeriod != null and recordBillingPeriod != ''">
+               AND i.inv_billing_period = #{recordBillingPeriod}
+            </if>
+            <if test="recordCustomerType != null and recordCustomerType != ''">
+               AND c.clie_customer_type = #{recordCustomerType}
+            </if>
+            <if test="recordIdType != null and recordIdType != ''">
+               AND c.clie_id_type = #{recordIdType}
+            </if>
+            <if test="recordClientId != null and recordClientId != ''">
+               AND c.clie_client_id = #{recordClientId}
+            </if>
         </where>
     </select>
+   
     
      <!-- Service By Id-->
     <select id="getServiceById" resultMap="ServiceResultMap">
@@ -92,7 +109,7 @@
               FROM service
         ]]>
         <where>
-               AND serv_serviceId = #{objectId}
+               AND serv_service_id = #{objectId}
         </where>
     </select>
     
@@ -116,7 +133,7 @@
         <include refid="sqlGetAllClients"/>
         <![CDATA[
                    ) AS records
-          ORDER BY clie_clientId
+          ORDER BY clie_client_id
         ]]>
         <if test="limit != null">
              LIMIT ${limit} OFFSET ${offset}
@@ -130,19 +147,19 @@
         ]]>
         <where>
 			<if test="recordCustomerType != null">
-               AND clie_customerType = #{recordCustomerType}
+               AND clie_customer_type = #{recordCustomerType}
             </if>
             <if test="recordIdType != null">
-               AND clie_idType = #{recordIdType}
+               AND clie_id_type = #{recordIdType}
             </if>
             <if test="recordMsisdn != null">
                AND clie_msisdn = #{recordMsisdn}
             </if>
             <if test="recordActivationDate != null">
-               AND clie_activationDate = #{recordActivationDate}
+               AND clie_activation_date = #{recordActivationDate}
             </if>
             <if test="recordTotalDiscount != null">
-               AND clie_totalDiscount = #{recordTotalDiscount}
+               AND clie_total_discount = #{recordTotalDiscount}
             </if>
         </where>
     </sql>
@@ -156,7 +173,7 @@
         <include refid="sqlGetAllInvoices"/>
         <![CDATA[
                    ) AS records
-          ORDER BY inv_invoiceId
+          ORDER BY inv_invoice_id
         ]]>
         <if test="limit != null">
              LIMIT ${limit} OFFSET ${offset}
@@ -170,13 +187,13 @@
         ]]>
         <where>
 			<if test="recordBillingPeriod != null">
-               AND inv_billingPeriod = #{recordBillingPeriod}
+               AND inv_billing_period = #{recordBillingPeriod}
             </if>
             <if test="recordTotalAmount != null">
-               AND inv_totalAmount = #{recordTotalAmount}
+               AND inv_total_amount = #{recordTotalAmount}
             </if>
             <if test="recordClientId != null">
-               AND inv_clie_clientId = #{recordClientId}
+               AND inv_clie_client_id = #{recordClientId}
             </if>
         </where>
     </sql>
@@ -190,7 +207,7 @@
         <include refid="sqlGetAllServices"/>
         <![CDATA[
                    ) AS records
-          ORDER BY serv_serviceId
+          ORDER BY serv_service_id
         ]]>
         <if test="limit != null">
              LIMIT ${limit} OFFSET ${offset}
@@ -204,13 +221,13 @@
         ]]>
         <where>
 			<if test="recordName != null">
-               AND serv_serviceName = #{recordName}
+               AND serv_service_name = #{recordName}
             </if>
             <if test="recordAmount != null">
-               AND serv_serviceAmount = #{recordAmount}
+               AND serv_service_amount = #{recordAmount}
             </if>
             <if test="recordClientId != null">
-               AND serv_clie_clientId = #{recordClientId}
+               AND serv_clie_client_id = #{recordClientId}
             </if>
         </where>
     </sql>
@@ -237,10 +254,10 @@
         ]]>
         <where>
 			<if test="recordInvoiceId != null">
-               AND inse_invo_invoiceId = #{recordInvoiceId}
+               AND inse_invo_invoice_id = #{recordInvoiceId}
             </if>
             <if test="recordServiceId != null">
-               AND inse_serv_serviceId = #{recordServiceId}
+               AND inse_serv_service_id = #{recordServiceId}
             </if>          
         </where>
     </sql>
