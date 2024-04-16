@@ -70,7 +70,7 @@ public class RQueryRepository {
 	}
 
 	public List<Invoice> getInvoicesQuery(Optional<String> customerType, Optional<String> idType,
-			Optional<String> clientId, Optional<String> invoiceId, Optional<String> billingPeriod)
+			Optional<String> clientId, Optional<String> billingPeriod, Optional<String> invoiceId)
 			throws RepositoryException {
 		return mQueryMapper.getInvoicesQuery(customerType.orElse(null), idType.orElse(null), clientId.orElse(null), 
 				billingPeriod.orElse(null), invoiceId.orElse(null));

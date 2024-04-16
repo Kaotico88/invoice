@@ -56,7 +56,7 @@ public class GeneralResource {
     	String sessionLogId = System.currentTimeMillis() + ": ";
         ResponseObjectDto responseObj = new ResponseObjectDto();//este es el objetito
         HttpHeaders responseHeaders = new HttpHeaders();
-        //requestLog(request); 
+        requestLog(request, sessionLogId); 
     	
         if(customerType == null || customerType.isEmpty()) {
         	throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'customerType' no es valido");
