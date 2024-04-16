@@ -74,22 +74,16 @@
      <!-- Invoice query que llama a lo que se require se fuciona para llamar parametros de las dos entidades -->
     <select id="getInvoiceQuery" resultMap="InvoiceResultMap">
         <![CDATA[
-            SELECT i.inv_invoice_id, 
-            	   i.inv_billing_period, 
-            	   c.clie_customer_type, 
+            SELECT c.clie_customer_type, 
             	   c.clie_id_type, 
             	   c.clie_client_id 
+            	   i.inv_invoice_id, 
+            	   i.inv_billing_period   
               FROM invoice i
               LEFT JOIN client c ON c.clie_clientId = i.inv_clie_clientId
         ]]>
         <where>
-			<if test="recordInvoiceId != null and recordInvoiceId != ''">
-               AND i.inv_invoice_id = #{recordInvoiceId}
-            </if>
-            <if test="recordBillingPeriod != null and recordBillingPeriod != ''">
-               AND i.inv_billing_period = #{recordBillingPeriod}
-            </if>
-            <if test="recordCustomerType != null and recordCustomerType != ''">
+			<if test="recordCustomerType != null and recordCustomerType != ''">
                AND c.clie_customer_type = #{recordCustomerType}
             </if>
             <if test="recordIdType != null and recordIdType != ''">
@@ -97,6 +91,12 @@
             </if>
             <if test="recordClientId != null and recordClientId != ''">
                AND c.clie_client_id = #{recordClientId}
+            </if>
+            <if test="recordBillingPeriod != null and recordBillingPeriod != ''">
+               AND i.inv_billing_period = #{recordBillingPeriod}
+            </if>
+            <if test="recordInvoiceId != null and recordInvoiceId != ''">
+               AND i.inv_invoice_id = #{recordInvoiceId}
             </if>
         </where>
     </select>

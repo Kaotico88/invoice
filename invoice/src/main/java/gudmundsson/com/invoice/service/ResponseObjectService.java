@@ -25,7 +25,7 @@ public class ResponseObjectService {
 		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
 		responseObjectDto.setData(new Data());
 		responseObjectDto.getData().setInvoices(
-				rQueryRepository.getInvoicesQuery(invoiceId, billingPeriod, customerType, idType, clientId));
+				rQueryRepository.getInvoicesQuery(customerType, idType, clientId, billingPeriod, invoiceId));
 		
 		return responseObjectDto;
 	}
