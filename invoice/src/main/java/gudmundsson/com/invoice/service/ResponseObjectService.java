@@ -16,21 +16,18 @@ public class ResponseObjectService {
 	@Autowired
 	private RQueryRepository rQueryRepository;
 
-	@Autowired
-	private InvoiceService invoiceService;
-
 	// esto puede estar en otro paquete como invoiceService y llamarlo en el
 	// ResponseObject
 	public ResponseObjectDto getQueryRecords(Optional<String> customerType, Optional<String> idType,
-			Optional<String> clientId, Optional<String> billingPeriod, Optional<String> invoiceId) 
-					throws RepositoryException{
+			Optional<String> clientId, Optional<String> billingPeriod, Optional<String> invoiceId,
+			 String sessionLogId) throws RepositoryException {
 
 		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
 		responseObjectDto.setData(new Data());
-		responseObjectDto.getData().setInvoices(rQueryRepository.getInvoicesQuery(invoiceId, billingPeriod, clientId));
+		responseObjectDto.getData().setInvoices(
+				rQueryRepository.getInvoicesQuery(invoiceId, billingPeriod, customerType, idType, clientId));
+		
 		return responseObjectDto;
 	}
 
-//	el dato opcional que se requiere es invoiceID
-//	hay que analizar esto de que es lo que recibo y que quiero obtener
 }

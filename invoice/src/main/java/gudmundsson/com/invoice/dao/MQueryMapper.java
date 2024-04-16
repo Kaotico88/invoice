@@ -47,7 +47,9 @@ public interface MQueryMapper {
 			@Param("recordIdType") String recordIdType, @Param("recordClientId") String recordClientId)
 					throws RepositoryException;
 	
+// esto es lo que se modifica para traer todos los parametros requeridos	
 	public List<Invoice> getInvoicesQuery(@Param("recordInvoiceId") String recordInvoiceId,
-			@Param("recordBillingPeriod") String recordBillingPeriod, @Param("recordClientId") String recordClientId)
+			@Param("recordBillingPeriod") String recordBillingPeriod, @Param("recordCustomerType") String recordCustomerType,
+			@Param("recordIdType") String recordIdType,@Param("recordClientId") String recordClientId)
 					throws RepositoryException;
 }

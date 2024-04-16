@@ -48,7 +48,7 @@
                AND clie_client_id = #{objectId}
         </where>
     </select>
-    
+    <!-- Cliente By Id Para el invoice es lo mismo sigues la logica de los dos querys-->
     <select id="getClientQuery" resultMap="ClientResultMap">
         <![CDATA[
             SELECT *
@@ -71,7 +71,7 @@
                AND inv_invoice_id = #{objectId}
         </where>
     </select>
-     <!-- Invoice By Id esta parte esta en modificacion -->
+     <!-- Invoice query que llama a lo que se require se fuciona para llamar parametros de las dos entidades -->
     <select id="getInvoiceQuery" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT i.inv_invoice_id, 
