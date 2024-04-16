@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--
  * Rene Marco Gudmundsson Pozo
- * Lizbeth Zorca Montanio Colque
+ * Lizbeth Zorca Montanio Colque gudmundsson.com.invoice.dao
  -->
 <mapper namespace="gudmundsson.com.invoice.dao.MQueryMapper">
     <!-- Result Maps -->
@@ -36,7 +36,6 @@
     </resultMap>
 
     <!-- Queries -->
-    
     
     <!-- Cliente By Id-->
     <select id="getClientById" resultMap="ClientResultMap">
@@ -72,15 +71,15 @@
         </where>
     </select>
      <!-- Invoice query que llama a lo que se require se fuciona para llamar parametros de las dos entidades -->
-    <select id="getInvoiceQuery" resultMap="InvoiceResultMap">
+    <select id="getInvoicesQuery" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT c.clie_customer_type, 
             	   c.clie_id_type, 
-            	   c.clie_client_id 
+            	   c.clie_client_id, 
             	   i.inv_invoice_id, 
             	   i.inv_billing_period   
               FROM invoice i
-              LEFT JOIN client c ON c.clie_clientId = i.inv_clie_clientId
+              LEFT JOIN client c ON c.clie_client_id = i.inv_clie_client_id
         ]]>
         <where>
 			<if test="recordCustomerType != null and recordCustomerType != ''">
