@@ -1,10 +1,12 @@
 package gudmundsson.com.invoice.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import gudmundsson.com.invoice.core.Client;
 import gudmundsson.com.invoice.core.Invoice;
 import gudmundsson.com.invoice.dao.RQueryRepository;
 import gudmundsson.com.invoice.dto.ResponseObjectDto;
@@ -27,19 +29,27 @@ public class ResponseObjectService {
 			throws RepositoryException {
 
 		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
-		Invoice invoice = invoiceService.getById(invoiceId);
-		customerType = Optional.of(invoice.getClient().getCustomerType());
-		idType = Optional.of(invoice.getClient().getIdType());
-		clientId = Optional.of(invoice.getClient().getClientId());
-		
-		System.out.println("#####################Este es el valor de customerType: " + customerType);
-		System.out.println("#####################Este es el valor de idType: " + idType);
-		System.out.println("#####################Este es el valor de clientId: " + clientId);
+		Client client = new Client();
+//		Invoice invoice = invoiceService.getById(invoiceId);
+//		customerType = Optional.of(invoice.getClient().getCustomerType());
+//		idType = Optional.of(invoice.getClient().getIdType());
+//		clientId = Optional.of(invoice.getClient().getClientId());
+//		
+//		System.out.println("#####################Este es el valor de customerType: " + customerType);
+//		System.out.println("#####################Este es el valor de idType: " + idType);
+//		System.out.println("#####################Este es el valor de clientId: " + clientId);
 		responseObjectDto.setData(new Data());
 		responseObjectDto.getData()
 				.setInvoices(rQueryRepository.getInvoicesQuery(customerType, idType, clientId, billingPeriod, invoiceId));
-
-//		responseObjectDto.getData().getInvoices().
+		
+		List<Invoice> invoices = responseObjectDto.getData().getInvoices();
+		
+		for(Invoice invoice : invoices) {
+			client = rQueryRepository.getClientById(clientId);
+			invoice.setClient(client);
+		}
+		
+		responseObjectDto.getData().setInvoices(invoices);
 
 		return responseObjectDto;
 	}
