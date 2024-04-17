@@ -6,7 +6,7 @@ public class Invoice {
 
 	private String billingPeriod;
 
-	private Double totalDiscount;
+	private Double totalAmount;
 
 	private Client client;
 
@@ -26,12 +26,12 @@ public class Invoice {
 		this.billingPeriod = billingPeriod;
 	}
 
-	public Double getTotalDiscount() {
-		return totalDiscount;
+	public Double getTotalAmount() {
+		return totalAmount;
 	}
 
-	public void setTotalDiscount(Double totalDiscount) {
-		this.totalDiscount = totalDiscount;
+	public void setTotalAmount(Double totalAmount) {
+		this.totalAmount = totalAmount;
 	}
 
 	public Client getClient() {

@@ -9,6 +9,8 @@ public class Client {
 	private String customerType;
 
 	private String idType;
+	
+	private String msisdn;
 
 	private Date activationDate;
 
@@ -36,6 +38,14 @@ public class Client {
 
 	public void setIdType(String idType) {
 		this.idType = idType;
+	}
+	
+	public String getMsisdn() {
+		return msisdn;
+	}
+
+	public void setMsisdn(String msisdn) {
+		this.msisdn = msisdn;
 	}
 
 	public Date getActivationDate() {

@@ -18,7 +18,7 @@
     <resultMap id="InvoiceResultMap" type="gudmundsson.com.invoice.core.Invoice">
         <id     column="inv_invoice_id"     property="invoiceId"       javaType="string"/>
         <result column="inv_billing_period" property="billingPeriod"   javaType="string"/>
-        <result column="inv_total_amount"   property="totalAmount"     javaType="float"/>
+        <result column="inv_total_amount"   property="totalAmount"     javaType="double"/>
         <result column="inv_clie_client_id" property="client.clientId" javaType="string"/>
     </resultMap>
 
