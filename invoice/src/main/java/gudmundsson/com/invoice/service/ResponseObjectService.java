@@ -19,39 +19,22 @@ public class ResponseObjectService {
 	@Autowired
 	private RQueryRepository rQueryRepository;
 
-	@Autowired
-	private InvoiceService invoiceService;
-
-	// esto puede estar en otro paquete como invoiceService y llamarlo en el
-	// ResponseObject
 	public ResponseObjectDto getQueryRecords(Optional<String> customerType, Optional<String> idType,
 			Optional<String> clientId, Optional<String> billingPeriod, Optional<String> invoiceId, String sessionLogId)
 			throws RepositoryException {
 
 		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
-		Client client = new Client();
-//		Invoice invoice = invoiceService.getById(invoiceId);
-//		customerType = Optional.of(invoice.getClient().getCustomerType());
-//		idType = Optional.of(invoice.getClient().getIdType());
-//		clientId = Optional.of(invoice.getClient().getClientId());
-//		
-//		System.out.println("#####################Este es el valor de customerType: " + customerType);
-//		System.out.println("#####################Este es el valor de idType: " + idType);
-//		System.out.println("#####################Este es el valor de clientId: " + clientId);
 		responseObjectDto.setData(new Data());
-		responseObjectDto.getData()
-				.setInvoices(rQueryRepository.getInvoicesQuery(customerType, idType, clientId, billingPeriod, invoiceId));
-		
+		responseObjectDto.getData().setInvoices(
+				rQueryRepository.getInvoicesQuery(customerType, idType, clientId, billingPeriod, invoiceId));
+
 		List<Invoice> invoices = responseObjectDto.getData().getInvoices();
-		
-		for(Invoice invoice : invoices) {
-			client = rQueryRepository.getClientById(clientId);
+
+		for (Invoice invoice : invoices) {
+			Client client = rQueryRepository.getClientById(clientId);
 			invoice.setClient(client);
 		}
-		
-		responseObjectDto.getData().setInvoices(invoices);
 
 		return responseObjectDto;
 	}
-
 }
