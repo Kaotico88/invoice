@@ -2,6 +2,8 @@ package gudmundsson.com.invoice.api;
 
 import static java.util.Optional.ofNullable;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,73 +30,87 @@ public class GeneralResource {
 
 	private static final Logger logger = LoggerFactory.getLogger(GeneralResource.class);
 
-    @Autowired
-    private AEutil util;
-    
-    @Autowired
-    private ResponseObjectService responseObjectService;
-    
-    @GetMapping("/status")
-    public ResponseEntity<Object> healthRequest(HttpServletRequest request) throws Exception {
+	@Autowired
+	private AEutil util;
 
-        HealthMessage object;
-        HttpHeaders responseHeaders = new HttpHeaders();
-        requestLog(request, "X: ");
+	@Autowired
+	private ResponseObjectService responseObjectService;
 
-        object = new HealthMessage("Service is operating normally!!");
+	private HashMap<String, String> customerTypeMap;
 
-        responseHeaders.set("Custom-Message", "HTTP/1.1 200 OK");
-        return new ResponseEntity<Object>(object, responseHeaders, HttpStatus.OK);
-    }
-    //aca empieza el resource del requrimiento
-    @GetMapping("/{customerType}/{idType}/{clientId}/{billingPeriod}")
-    public ResponseEntity<ResponseObjectDto> getInvoiceClient(@PathVariable("customerType") String customerType, 
-    		@PathVariable("idType") String idType, @PathVariable("clientId") String clientId, 
-    		@PathVariable("billingPeriod") String billingPeriod, @RequestParam(name = "invoiceId") String invoiceId,
-    		HttpServletRequest request){
-    	
-    	String sessionLogId = System.currentTimeMillis() + ": ";
-        ResponseObjectDto responseObj = new ResponseObjectDto();//este es el objetito
-        HttpHeaders responseHeaders = new HttpHeaders();
-        requestLog(request, sessionLogId); 
-    	
-        if(customerType == null || customerType.isEmpty()) {
-        	throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'customerType' no es valido");
-        }
-        if(idType == null || idType.isEmpty()) {
-        	throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'idType' no es valido");
-        }
-        if(clientId == null || clientId.isEmpty()) {
-        	throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'clientId' no es valido");
-        }
-        if(idType == null || idType.isEmpty()) {
-        	throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'idType' no es valido");
-        }
-        if(billingPeriod == null || billingPeriod.isEmpty()) {
-        	throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'billingPeriod' no es valido");
-        }
-        if(invoiceId == null || invoiceId.isEmpty()) {
-        	throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'invoiceIde' no es valido");
-        }
-        
-        responseObj = responseObjectService.getQueryRecords(ofNullable(customerType), ofNullable(idType), ofNullable(clientId), 
-        		ofNullable(billingPeriod), ofNullable(invoiceId), sessionLogId);
-        
-        if(responseObj == null || responseObj.getData() == null || responseObj.getData().getInvoices().isEmpty() ) {
-        	throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
-        }
-        
-        responseHeaders.set("Custom-Message", "HTTP/1.1 200 Ok");
-        return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED); 
-        
-    }
-    
-    private synchronized void requestLog(HttpServletRequest request, String sessionLogId) {
-        AElog.infoX(logger,
-                sessionLogId + util.getInetAddressPort() + " <= " + request.getRemoteHost() + " {method:"
-                        + request.getMethod() + ", URI:" + request.getRequestURI() + ", query:"
-                        + request.getQueryString() + "}");
-    }
-    
-    
+	private HashMap<String, String> idTypeMap;
+
+	public GeneralResource() {
+		customerTypeMap = new HashMap<>();
+		customerTypeMap.put("MOBILE", "MOBILE");
+		customerTypeMap.put("HOME", "HOME");
+		customerTypeMap.put("CONVERGENT", "CONVERGENT");
+
+		idTypeMap = new HashMap<>();
+		idTypeMap.put("DOCUMENT", "DOCUMENT");
+		idTypeMap.put("CLIENTID", "CLIENTID");
+		idTypeMap.put("CONTRACT", "CONTRACT");
+		idTypeMap.put("MSISDN", "MSISDN");
+	}
+
+	@GetMapping("/status")
+	public ResponseEntity<Object> healthRequest(HttpServletRequest request) throws Exception {
+
+		HealthMessage object;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		requestLog(request, "X: ");
+
+		object = new HealthMessage("Service is operating normally!!");
+
+		responseHeaders.set("Custom-Message", "HTTP/1.1 200 OK");
+		return new ResponseEntity<Object>(object, responseHeaders, HttpStatus.OK);
+	}
+
+	@GetMapping("/{customerType}/{idType}/{clientId}/{billingPeriod}")
+	public ResponseEntity<ResponseObjectDto> getInvoiceClient(@PathVariable("customerType") String customerType,
+			@PathVariable("idType") String idType, @PathVariable("clientId") String clientId,
+			@PathVariable("billingPeriod") String billingPeriod, @RequestParam(name = "invoiceId") String invoiceId,
+			HttpServletRequest request) {
+
+		String sessionLogId = System.currentTimeMillis() + ": ";
+		ResponseObjectDto responseObj = new ResponseObjectDto();// este es el objetito
+		HttpHeaders responseHeaders = new HttpHeaders();
+		requestLog(request, sessionLogId);
+
+		if (customerType == null || customerType.isEmpty()
+				|| !customerTypeMap.containsKey(customerType.toUpperCase())) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'customerType' no es valido");
+		}
+		if (idType == null || idType.isEmpty() || !idTypeMap.containsKey(idType.toUpperCase())) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'idType' no es valido");
+		}
+		if (clientId == null || clientId.isEmpty()) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'clientId' no es valido");
+		}
+		if (billingPeriod == null || billingPeriod.isEmpty()) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'billingPeriod' no es valido");
+		}
+		if (invoiceId == null || invoiceId.isEmpty()) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'invoiceIde' no es valido");
+		}
+
+		responseObj = responseObjectService.getQueryRecords(ofNullable(customerType), ofNullable(idType),
+				ofNullable(clientId), ofNullable(billingPeriod), ofNullable(invoiceId), sessionLogId);
+
+		if (responseObj == null || responseObj.getData() == null || responseObj.getData().getInvoices().isEmpty()) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
+		}
+
+		responseHeaders.set("Custom-Message", "HTTP/1.1 200 Ok");
+		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
+
+	}
+
+	private synchronized void requestLog(HttpServletRequest request, String sessionLogId) {
+		AElog.infoX(logger,
+				sessionLogId + util.getInetAddressPort() + " <= " + request.getRemoteHost() + " {method:"
+						+ request.getMethod() + ", URI:" + request.getRequestURI() + ", query:"
+						+ request.getQueryString() + "}");
+	}
+
 }
