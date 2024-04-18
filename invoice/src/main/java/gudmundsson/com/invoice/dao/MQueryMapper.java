@@ -52,4 +52,10 @@ public interface MQueryMapper {
 			@Param("recordIdType") String recordIdType, @Param("recordClientId") String recordClientId,
 			@Param("recordBillingPeriod") String recordBillingPeriod, @Param("recordInvoiceId") String recordInvoiceId)
 			throws RepositoryException;
+	
+// Este es el query que no require del InvoiceId	
+		public List<Invoice> getInvoicesWithoutInvoiceId(@Param("recordCustomerType") String recordCustomerType,
+				@Param("recordIdType") String recordIdType, @Param("recordClientId") String recordClientId,
+				@Param("recordBillingPeriod") String recordBillingPeriod)
+				throws RepositoryException;
 }

@@ -25,8 +25,17 @@ public class ResponseObjectService {
 
 		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
 		responseObjectDto.setData(new Data());
-		responseObjectDto.getData().setInvoices(
-				rQueryRepository.getInvoicesQuery(customerType, idType, clientId, billingPeriod, invoiceId));
+
+		// Comprueba si invoiceId está presente antes de usarlo
+		if (invoiceId.isPresent()) {
+			responseObjectDto.getData().setInvoices(
+					rQueryRepository.getInvoicesQuery(customerType, idType, clientId, billingPeriod, invoiceId));
+			System.out.println("AAAAAACAPA SERVICIO Este es el valor de InvoiceId: " + invoiceId);
+		} else {
+			responseObjectDto.getData().setInvoices(
+					rQueryRepository.getInvoicesWithoutInvoiceId(customerType, idType, clientId, billingPeriod));
+			System.out.println("BBBBBCAPA SERVICIO Este es el valor de InvoiceId: " + invoiceId);
+		}
 
 		List<Invoice> invoices = responseObjectDto.getData().getInvoices();
 

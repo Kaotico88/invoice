@@ -69,7 +69,8 @@ public class GeneralResource {
 	@GetMapping("/{customerType}/{idType}/{clientId}/{billingPeriod}")
 	public ResponseEntity<ResponseObjectDto> getInvoiceClient(@PathVariable("customerType") String customerType,
 			@PathVariable("idType") String idType, @PathVariable("clientId") String clientId,
-			@PathVariable("billingPeriod") String billingPeriod, @RequestParam(name = "invoiceId") String invoiceId,
+			@PathVariable("billingPeriod") String billingPeriod, 
+			@RequestParam(name = "invoiceId", required = false) String invoiceId,
 			HttpServletRequest request) {
 
 		String sessionLogId = System.currentTimeMillis() + ": ";
@@ -90,10 +91,11 @@ public class GeneralResource {
 		if (billingPeriod == null || billingPeriod.isEmpty()) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'billingPeriod' no es valido");
 		}
-		if (invoiceId == null || invoiceId.isEmpty()) {
-			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'invoiceIde' no es valido");
-		}
-
+//		if (invoiceId == null || invoiceId.isEmpty()) {
+//			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'invoiceId' no es valido");
+//		}
+		System.out.println("CCCCCCCCAPA CONTROLADOR Este es el valor de InvoiceId: " + invoiceId);
+		
 		responseObj = responseObjectService.getQueryRecords(ofNullable(customerType), ofNullable(idType),
 				ofNullable(clientId), ofNullable(billingPeriod), ofNullable(invoiceId), sessionLogId);
 
