@@ -54,12 +54,12 @@ public class ResponseObjectService {
 					rQueryRepository.getInvByCustomerInvoiceId(customerType, invoiceId));
 		
 		List<Invoice> invoices = responseObjectDto.getData().getInvoices();
-
+//EN esta parte debo poblar a client y a invoice segun el invoiceId esto debo mejorar para que se ve amucho mejor con el client
 		for (Invoice invoice : invoices) {
+			invoice = rQueryRepository.getInvoiceById(invoiceId);
 			Client client = rQueryRepository.getClientById(Optional.of(invoice.getClient().getClientId()));
 			invoice.setClient(client);
 		}
-
 		return responseObjectDto;
 	}
 }
