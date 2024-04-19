@@ -1,5 +1,6 @@
 package gudmundsson.com.invoice.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,9 @@ public class ResponseObjectService {
 
 	@Autowired
 	private RQueryRepository rQueryRepository;
+	
+	@Autowired
+	private InvoiceService invoiceService;
 
 	public ResponseObjectDto getQueryRecords(Optional<String> customerType, Optional<String> idType,
 			Optional<String> clientId, Optional<String> billingPeriod, Optional<String> invoiceId, String sessionLogId)
@@ -50,16 +54,20 @@ public class ResponseObjectService {
 
 		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
 		responseObjectDto.setData(new Data());
-		responseObjectDto.getData().setInvoices(
-					rQueryRepository.getInvByCustomerInvoiceId(customerType, invoiceId));
+//		el metodo getInvByCustomerInvoiceId me devuelve una lista, pero como solo devuelve una sola factura
+//		que llega a ser el primer elemento de la lista sera el objeto Invoice en la posicion get(0)
+		Invoice improveInvoice = rQueryRepository.getInvByCustomerInvoiceId(customerType, invoiceId).get(0);
 		
-		List<Invoice> invoices = responseObjectDto.getData().getInvoices();
-//EN esta parte debo poblar a client y a invoice segun el invoiceId esto debo mejorar para que se ve amucho mejor con el client
-		for (Invoice invoice : invoices) {
-			invoice = rQueryRepository.getInvoiceById(invoiceId);
-			Client client = rQueryRepository.getClientById(Optional.of(invoice.getClient().getClientId()));
-			invoice.setClient(client);
-		}
+		Optional<String> clientId = Optional.of(improveInvoice.getClient().getClientId());
+		System.out.println("AAAAAEste es el valor de clientID: " + clientId);
+		Client client = rQueryRepository.getClientById(clientId);
+		System.out.println("BBBBEste es el valor de client: " + client);
+		improveInvoice.setClient(client);	
+//		Añade la factura a la respuesta responseObjecDto	
+		List<Invoice> invoices = new ArrayList<>();
+		invoices.add(improveInvoice);
+		responseObjectDto.getData().setInvoices(invoices);
+					
 		return responseObjectDto;
 	}
 }

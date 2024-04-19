@@ -132,7 +132,8 @@
     <select id="getInvByCustomerInvoiceId" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT c.clie_customer_type,  
-            	   i.inv_invoice_id   
+            	   i.inv_invoice_id,
+            	   c.clie_client_id   
               FROM invoice i
               INNER JOIN client c ON c.clie_client_id = i.inv_clie_client_id
         ]]>
