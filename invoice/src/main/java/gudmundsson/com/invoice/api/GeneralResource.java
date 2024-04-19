@@ -91,13 +91,36 @@ public class GeneralResource {
 		if (billingPeriod == null || billingPeriod.isEmpty()) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'billingPeriod' no es valido");
 		}
-//		if (invoiceId == null || invoiceId.isEmpty()) {
-//			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'invoiceId' no es valido");
-//		}
-		System.out.println("CCCCCCCCAPA CONTROLADOR Este es el valor de InvoiceId: " + invoiceId);
 		
 		responseObj = responseObjectService.getQueryRecords(ofNullable(customerType), ofNullable(idType),
 				ofNullable(clientId), ofNullable(billingPeriod), ofNullable(invoiceId), sessionLogId);
+
+		if (responseObj == null || responseObj.getData() == null || responseObj.getData().getInvoices().isEmpty()) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
+		}
+
+		responseHeaders.set("Custom-Message", "HTTP/1.1 200 Ok");
+		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
+
+	}
+	
+	@GetMapping("/{customerType}/{invoiceId}")
+	public ResponseEntity<ResponseObjectDto> getInvoiceClientB(@PathVariable("customerType") String customerType,
+			@PathVariable("invoiceId") String invoiceId, HttpServletRequest request) {
+
+		String sessionLogId = System.currentTimeMillis() + ": ";
+		ResponseObjectDto responseObj = new ResponseObjectDto();// este es el objetito
+		HttpHeaders responseHeaders = new HttpHeaders();
+		requestLog(request, sessionLogId);
+
+		if (customerType == null || customerType.isEmpty()
+				|| !customerTypeMap.containsKey(customerType.toUpperCase())) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'customerType' no es valido");
+		}
+		if (invoiceId == null || invoiceId.isEmpty()) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'invoiceId' no es valido");
+		
+		responseObj = responseObjectService.getQueryRecordsB(ofNullable(customerType), ofNullable(invoiceId), sessionLogId);
 
 		if (responseObj == null || responseObj.getData() == null || responseObj.getData().getInvoices().isEmpty()) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
