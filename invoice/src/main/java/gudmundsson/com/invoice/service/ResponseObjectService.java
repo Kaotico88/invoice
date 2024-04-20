@@ -19,7 +19,7 @@ public class ResponseObjectService {
 
 	@Autowired
 	private RQueryRepository rQueryRepository;
-	
+
 	@Autowired
 	private InvoiceService invoiceService;
 
@@ -49,25 +49,25 @@ public class ResponseObjectService {
 		return responseObjectDto;
 	}
 
-	public ResponseObjectDto getQueryRecordsB(Optional<String> customerType, Optional<String> invoiceId, String sessionLogId)
-			throws RepositoryException {
+	public ResponseObjectDto getQueryRecordsB(Optional<String> customerType, Optional<String> invoiceId,
+			String sessionLogId) throws RepositoryException {
+
+		Invoice invoice = rQueryRepository.getInvByCustomerInvoiceId(customerType, invoiceId);
+
+		invoice = invoiceService.getById(invoiceId);
+		String clientId = invoice.getClient().getClientId();
+		Client client = rQueryRepository.getClientById(Optional.of(clientId));
+
+		invoice.setClient(client);
 
 		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
 		responseObjectDto.setData(new Data());
-//		el metodo getInvByCustomerInvoiceId me devuelve una lista, pero como solo devuelve una sola factura
-//		que llega a ser el primer elemento de la lista sera el objeto Invoice en la posicion get(0)
-		Invoice improveInvoice = rQueryRepository.getInvByCustomerInvoiceId(customerType, invoiceId).get(0);
-		
-		Optional<String> clientId = Optional.of(improveInvoice.getClient().getClientId());
-		System.out.println("AAAAAEste es el valor de clientID: " + clientId);
-		Client client = rQueryRepository.getClientById(clientId);
-		System.out.println("BBBBEste es el valor de client: " + client);
-		improveInvoice.setClient(client);	
-//		Añade la factura a la respuesta responseObjecDto	
+
 		List<Invoice> invoices = new ArrayList<>();
-		invoices.add(improveInvoice);
+		invoices.add(invoice);
+		
 		responseObjectDto.getData().setInvoices(invoices);
-					
+
 		return responseObjectDto;
 	}
 }

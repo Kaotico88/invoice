@@ -60,7 +60,7 @@ public interface MQueryMapper {
 				throws RepositoryException;
 		
 // Este es el query que filtra por customerTyp e invoiceId	
-		public List<Invoice> getInvByCustomerInvoiceId(@Param("recordCustomerType") String recordCustomerType,
+		public Invoice getInvByCustomerInvoiceId(@Param("recordCustomerType") String recordCustomerType,
 				@Param("recordInvoiceId") String recordInvoiceId)
 				throws RepositoryException;
 }

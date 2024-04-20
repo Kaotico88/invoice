@@ -7,12 +7,12 @@
 <mapper namespace="gudmundsson.com.invoice.dao.MQueryMapper">
     <!-- Result Maps -->
     <resultMap id="ClientResultMap" type="gudmundsson.com.invoice.core.Client">
-        <id     column="clie_client_id" 	  property="clientId" 	   javaType="string"/>
+        <id     column="clie_client_id" 	  property="clientId" 	    javaType="string"/>
         <result column="clie_customer_type"   property="customerType"   javaType="string"/>
         <result column="clie_id_type"         property="idType"         javaType="string"/>
         <result column="clie_msisdn"          property="msisdn"         javaType="string"/>
         <result column="clie_activation_date" property="activationDate" javaType="java.sql.Date"/>
-        <result column="clie_total_discount"  property="totalDiscount"  javaType="float"/>
+        <result column="clie_total_discount"  property="totalDiscount"  javaType="double"/>
     </resultMap>
 
     <resultMap id="InvoiceResultMap" type="gudmundsson.com.invoice.core.Invoice">
@@ -132,8 +132,8 @@
     <select id="getInvByCustomerInvoiceId" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT c.clie_customer_type,  
-            	   i.inv_invoice_id,
-            	   c.clie_client_id   
+            	   c.clie_client_id,
+            	   i.inv_invoice_id
               FROM invoice i
               INNER JOIN client c ON c.clie_client_id = i.inv_clie_client_id
         ]]>
