@@ -70,4 +70,26 @@ public class ResponseObjectService {
 
 		return responseObjectDto;
 	}
+	
+	public ResponseObjectDto getQueryRecordsC(Optional<String> customerType, Optional<String> idType, Optional<String> billingPeriod, 
+			String sessionLogId) throws RepositoryException {
+
+//		Invoice invoice = rQueryRepository.getInvByCustomerIdTypeBillingP(customerType, idType, billingPeriod);
+//
+//		invoice = invoiceService.getById(invoiceId);
+//		String clientId = invoice.getClient().getClientId();
+//		Client client = rQueryRepository.getClientById(Optional.of(clientId));
+//
+//		invoice.setClient(client);
+//
+		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
+//		responseObjectDto.setData(new Data());
+//
+//		List<Invoice> invoices = new ArrayList<>();
+//		invoices.add(invoice);
+//		
+//		responseObjectDto.getData().setInvoices(invoices);
+
+		return responseObjectDto;
+	}
 }

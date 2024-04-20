@@ -101,7 +101,7 @@
         </where>
     </select>
     
-    <!-- Este es el query que no usara InvoiceId -->
+    <!-- Este es el query que no usara InvoiceId pero consumira por los otros parametros -->
     <select id="getInvoicesWithoutInvoiceId" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT c.clie_customer_type, 
@@ -128,7 +128,7 @@
         </where>
     </select>
    
-    <!-- Este es el query que solo tiene customerType e invoiceId -->
+    <!-- Este es el query que solo tiene customerType= MOBILE e invoiceId -->
     <select id="getInvByCustomerInvoiceId" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT c.clie_customer_type,  
@@ -146,6 +146,28 @@
             </if>         
         </where>
     </select>
+    <!-- Este es el query que filtrara por customerType= MOBILE, idType= DOCUMENT,  billingPeriod -->
+    <select id="getInvByCustomerIdTypeBillingP" resultMap="InvoiceResultMap">
+        <![CDATA[
+            SELECT c.clie_customer_type, 
+            	   c.clie_id_type,  
+            	   i.inv_billing_period   
+              FROM invoice i
+              INNER JOIN client c ON c.clie_client_id = i.inv_clie_client_id
+        ]]>
+        <where>
+			<if test="recordCustomerType != null">
+               AND c.clie_customer_type = #{recordCustomerType}
+            </if>
+            <if test="recordIdType != null">
+               AND c.clie_id_type = #{recordIdType}
+            </if>
+            <if test="recordBillingPeriod != null">
+               AND i.inv_billing_period = #{recordBillingPeriod}
+            </if>
+        </where>
+    </select>
+    
     
      <!-- Service By Id-->
     <select id="getServiceById" resultMap="ServiceResultMap">
