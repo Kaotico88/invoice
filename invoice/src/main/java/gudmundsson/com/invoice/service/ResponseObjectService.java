@@ -3,6 +3,7 @@ package gudmundsson.com.invoice.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,20 +77,37 @@ public class ResponseObjectService {
 	
 	public ResponseObjectDto getQueryRecordsC(Optional<String> customerType, Optional<String> idType, Optional<String> billingPeriod, 
 			String sessionLogId) throws RepositoryException {
-
-		String clientId = clientService.getByCustomerIdType(customerType, idType);
 		
-		List<Invoice> invoices =  rQueryRepository.getInvoicesByClient(Optional.of(clientId), billingPeriod);
+		List<Client> clients = clientService.getByCustomerIdType(customerType, idType);
+		List<String> clientIds = clients.stream().map(Client::getClientId).collect(Collectors.toList());
+		
+		List<Invoice> invoices = new ArrayList<>();
+		for(String clientId : clientIds) {
+			List<Invoice> clientInvoices = rQueryRepository.getInvoicesByClient(Optional.of(clientId), billingPeriod);
+			invoices.addAll(clientInvoices);
+		}
 		
 		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
 		responseObjectDto.setData(new Data());
-		invoices = responseObjectDto.getData().getInvoices();
-		
-		for (Invoice invoice : invoices) {
-			Client client = rQueryRepository.getClientById(Optional.of(clientId));
-			invoice.setClient(client);
-		}
-
+		responseObjectDto.getData().setInvoices(invoices);
+	
 		return responseObjectDto;
+		
+	}
+	
+	public ResponseObjectDto getQueryRecordsD(Optional<String> customerType, Optional<String> idType, Optional<String> billingPeriod, 
+			Optional<String> invoiceId, String sessionLogId) throws RepositoryException {
+		
+		Invoice invoice = rQueryRepository.getInvByCustomerIdTypeBillingInvoiceId(customerType, idType, billingPeriod, invoiceId);
+		invoice = invoiceService.getById(invoiceId);
+		
+		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
+		responseObjectDto.setData(new Data());
+		List<Invoice> invoices = new ArrayList<>();
+		invoices.add(invoice);
+		responseObjectDto.getData().setInvoices(invoices);
+	
+		return responseObjectDto;
+		
 	}
 }

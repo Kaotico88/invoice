@@ -1,5 +1,6 @@
 package gudmundsson.com.invoice.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,9 @@ public class ClientService {
 	@Autowired
 	private RQueryRepository rQueryRepository;
 	
-	public String getByCustomerIdType(Optional<String> customerType, Optional<String> idType) {
-		Client client;
-		client = rQueryRepository.getClientByCustomerTIdType(customerType, idType);
-		return client.getClientId();	
+	public List<Client> getByCustomerIdType(Optional<String> customerType, Optional<String> idType) {
+		List<Client> clients;
+		clients = rQueryRepository.getClientByCustomerTypeIdType(customerType, idType);
+		return clients;	
 	}
 }

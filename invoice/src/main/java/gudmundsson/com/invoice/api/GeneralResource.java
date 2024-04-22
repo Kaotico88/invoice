@@ -131,6 +131,77 @@ public class GeneralResource {
 		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
 
 	}
+	
+	@GetMapping("/{customerType}/{idType}/{billingPeriod}")
+	public ResponseEntity<ResponseObjectDto> getQueryRecordsC(@PathVariable("customerType") String customerType,
+			@PathVariable("idType") String idType, @PathVariable("billingPeriod") String billingPeriod, 
+			HttpServletRequest request) {
+
+		String sessionLogId = System.currentTimeMillis() + ": ";
+		ResponseObjectDto responseObj = new ResponseObjectDto();// este es el objetito
+		HttpHeaders responseHeaders = new HttpHeaders();
+		requestLog(request, sessionLogId);
+
+		if (customerType == null || customerType.isEmpty()
+				|| !customerTypeMap.containsKey(customerType.toUpperCase())) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'customerType' no es valido");
+		}
+		if (idType == null || idType.isEmpty()) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'idType' no es valido");
+		}
+		
+		if (billingPeriod == null || billingPeriod.isEmpty()) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'billingPeriod' no es valido");
+		}
+		
+		responseObj = responseObjectService.getQueryRecordsC(ofNullable(customerType), ofNullable(idType), 
+				ofNullable(billingPeriod), sessionLogId);
+		
+		if (responseObj == null || responseObj.getData() == null || responseObj.getData().getInvoices().isEmpty()) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
+		}
+
+		responseHeaders.set("Custom-Message", "HTTP/1.1 200 Ok");
+		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
+
+	}
+	
+	@GetMapping("/{customerType}/{idType}/{billingPeriod}/{invoiceId}")
+	public ResponseEntity<ResponseObjectDto> getQueryRecordsD(@PathVariable("customerType") String customerType,
+			@PathVariable("idType") String idType, @PathVariable("billingPeriod") String billingPeriod,
+			@PathVariable("invoiceId") String invoiceId, HttpServletRequest request) {
+
+		String sessionLogId = System.currentTimeMillis() + ": ";
+		ResponseObjectDto responseObj = new ResponseObjectDto();// este es el objetito
+		HttpHeaders responseHeaders = new HttpHeaders();
+		requestLog(request, sessionLogId);
+
+		if (customerType == null || customerType.isEmpty()
+				|| !customerTypeMap.containsKey(customerType.toUpperCase())) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'customerType' no es valido");
+		}
+		if (idType == null || idType.isEmpty()) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'idType' no es valido");
+		}
+		
+		if (billingPeriod == null || billingPeriod.isEmpty()) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'billingPeriod' no es valido");
+		}
+		if (invoiceId == null || invoiceId.isEmpty()) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'invoiceId' no es valido");
+		}
+		
+		responseObj = responseObjectService.getQueryRecordsD(ofNullable(customerType), ofNullable(idType), 
+				ofNullable(billingPeriod), ofNullable(invoiceId), sessionLogId);
+		
+		if (responseObj == null || responseObj.getData() == null || responseObj.getData().getInvoices().isEmpty()) {
+			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
+		}
+
+		responseHeaders.set("Custom-Message", "HTTP/1.1 200 Ok");
+		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
+
+	}
 
 	private synchronized void requestLog(HttpServletRequest request, String sessionLogId) {
 		AElog.infoX(logger,

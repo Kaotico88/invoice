@@ -88,13 +88,19 @@ public class RQueryRepository {
 		return mQueryMapper.getInvByCustomerInvoiceId(customerType.orElse(null), invoiceId.orElse(null));
 	}
 	
-	public Client getClientByCustomerTIdType(Optional<String> customerType, Optional<String> recordIdType) 
+	public List<Client> getClientByCustomerTypeIdType(Optional<String> customerType, Optional<String> idType) 
 			throws RepositoryException {
-		return mQueryMapper.getClientByCustomerTIdType(customerType.orElse(null), recordIdType.orElse(null));
+		return mQueryMapper.getClientByCustomerTypeIdType(customerType.orElse(null), idType.orElse(null));
 	}
 	
 	public List<Invoice> getInvoicesByClient(Optional<String> clientId, Optional<String> billingPeriod)
 			throws RepositoryException {
 		return mQueryMapper.getInvoicesByClient(clientId.orElse(null), billingPeriod.orElse(null));
+	}
+	
+	public Invoice getInvByCustomerIdTypeBillingInvoiceId(Optional<String> customerType, Optional<String> idType,
+			Optional<String> billingPeriod, Optional<String> invoiceId )throws RepositoryException {
+		return mQueryMapper.getInvByCustomerIdTypeBillingInvoiceId(customerType.orElse(null), idType.orElse(null),
+				billingPeriod.orElse(null), invoiceId.orElse(null));
 	}
 }

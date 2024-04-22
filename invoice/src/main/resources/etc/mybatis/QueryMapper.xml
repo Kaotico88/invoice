@@ -191,7 +191,7 @@
         </where>
     </select>
     
-    <!-- Este es muy parecido solo que es de client nada mas-->
+    <!-- Este es muy parecido solo que es de client nada mas con los parametros de customerType y idType-->
     <select id="getClientByCustomerTypeIdType" resultMap="ClientResultMap">
         <![CDATA[
             SELECT *
@@ -202,11 +202,36 @@
                AND clie_customer_type = #{recordCustomerType}
             </if>   
             <if test="recordIdType != null">
-               AND c.clie_id_type = #{recordIdType}
+               AND clie_id_type = #{recordIdType}
             </if>
         </where>
     </select>
     
+    <!-- Este query obtiene un invoice segun customerType, idType, billingPeriod & invoiceId-->
+    <select id="getInvByCustomerIdTypeBillingInvoiceId" resultMap="InvoiceResultMap">
+        <![CDATA[
+            SELECT c.clie_customer_type, 
+            	   c.clie_id_type,  
+            	   i.inv_billing_period, 
+            	   i.inv_invoice_id   
+              FROM invoice i
+              INNER JOIN client c ON c.clie_client_id = i.inv_clie_client_id
+        ]]>
+        <where>
+			<if test="recordCustomerType != null">
+               AND c.clie_customer_type = #{recordCustomerType}
+            </if>
+            <if test="recordIdType != null">
+               AND c.clie_id_type = #{recordIdType}
+            </if>
+            <if test="recordBillingPeriod != null">
+               AND i.inv_billing_period = #{recordBillingPeriod}
+            </if>
+            <if test="recordInvoiceId != null">
+               AND i.inv_invoice_id = #{recordInvoiceId}
+            </if>
+        </where>
+    </select>
     
      <!-- Service By Id-->
     <select id="getServiceById" resultMap="ServiceResultMap">
