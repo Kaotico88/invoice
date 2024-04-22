@@ -59,7 +59,28 @@
                AND clie_client_id = #{recordClientId}
         </where>
     </select>
-    
+    <!-- Cliente by customerType & idType -->
+    <select id="getClientByCustomerTIdType" resultMap="ClientResultMap">
+        <![CDATA[
+            SELECT *
+              FROM client
+        ]]>
+        <where>
+               AND clie_customer_type = #{recordCustomerType}
+               AND clie_id_type = #{recordIdType}
+        </where>
+    </select>
+    <!-- Invoice  By clientId-->
+    <select id="getInvoicesByClient" resultMap="InvoiceResultMap">
+        <![CDATA[
+            SELECT *
+              FROM invoice
+        ]]>
+        <where>
+               AND inv_clie_client_id = #{recordClientId}
+               AND inv_billing_period = #{recordBillingPeriod}
+        </where>
+    </select>
      <!-- Invoice By Id-->
     <select id="getInvoiceById" resultMap="InvoiceResultMap">
         <![CDATA[
@@ -70,6 +91,7 @@
                AND inv_invoice_id = #{objectId}
         </where>
     </select>
+    
      <!-- Invoice query que llama a lo que se require se fuciona para llamar parametros de las dos entidades incluido invoideId -->
     <select id="getInvoicesQuery" resultMap="InvoiceResultMap">
         <![CDATA[
@@ -147,11 +169,12 @@
         </where>
     </select>
     <!-- Este es el query que filtrara por customerType= MOBILE, idType= DOCUMENT,  billingPeriod -->
+     <!-- considerando el mejor d los casos que idType & billingPeriod son obligatorios y especificos -->
     <select id="getInvByCustomerIdTypeBillingP" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT c.clie_customer_type, 
-            	   c.clie_id_type,  
-            	   i.inv_billing_period   
+            	   c.clie_id_type,            	     
+            	   i.inv_billing_period            	     
               FROM invoice i
               INNER JOIN client c ON c.clie_client_id = i.inv_clie_client_id
         ]]>
@@ -164,6 +187,22 @@
             </if>
             <if test="recordBillingPeriod != null">
                AND i.inv_billing_period = #{recordBillingPeriod}
+            </if>
+        </where>
+    </select>
+    
+    <!-- Este es muy parecido solo que es de client nada mas-->
+    <select id="getClientByCustomerTypeIdType" resultMap="ClientResultMap">
+        <![CDATA[
+            SELECT *
+              FROM client
+        ]]>
+        <where>
+			<if test="recordCustomerType != null">
+               AND clie_customer_type = #{recordCustomerType}
+            </if>   
+            <if test="recordIdType != null">
+               AND c.clie_id_type = #{recordIdType}
             </if>
         </where>
     </select>

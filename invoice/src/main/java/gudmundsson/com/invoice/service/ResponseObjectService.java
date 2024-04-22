@@ -22,6 +22,9 @@ public class ResponseObjectService {
 
 	@Autowired
 	private InvoiceService invoiceService;
+	
+	@Autowired
+	private ClientService clientService;
 
 	public ResponseObjectDto getQueryRecords(Optional<String> customerType, Optional<String> idType,
 			Optional<String> clientId, Optional<String> billingPeriod, Optional<String> invoiceId, String sessionLogId)
@@ -74,21 +77,18 @@ public class ResponseObjectService {
 	public ResponseObjectDto getQueryRecordsC(Optional<String> customerType, Optional<String> idType, Optional<String> billingPeriod, 
 			String sessionLogId) throws RepositoryException {
 
-//		Invoice invoice = rQueryRepository.getInvByCustomerIdTypeBillingP(customerType, idType, billingPeriod);
-//
-//		invoice = invoiceService.getById(invoiceId);
-//		String clientId = invoice.getClient().getClientId();
-//		Client client = rQueryRepository.getClientById(Optional.of(clientId));
-//
-//		invoice.setClient(client);
-//
+		String clientId = clientService.getByCustomerIdType(customerType, idType);
+		
+		List<Invoice> invoices =  rQueryRepository.getInvoicesByClient(Optional.of(clientId), billingPeriod);
+		
 		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
-//		responseObjectDto.setData(new Data());
-//
-//		List<Invoice> invoices = new ArrayList<>();
-//		invoices.add(invoice);
-//		
-//		responseObjectDto.getData().setInvoices(invoices);
+		responseObjectDto.setData(new Data());
+		invoices = responseObjectDto.getData().getInvoices();
+		
+		for (Invoice invoice : invoices) {
+			Client client = rQueryRepository.getClientById(Optional.of(clientId));
+			invoice.setClient(client);
+		}
 
 		return responseObjectDto;
 	}
