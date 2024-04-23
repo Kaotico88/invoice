@@ -58,13 +58,11 @@ public interface MQueryMapper {
 				@Param("recordIdType") String recordIdType, @Param("recordClientId") String recordClientId,
 				@Param("recordBillingPeriod") String recordBillingPeriod)
 				throws RepositoryException;
-		
+//Aca 		
 // Este es el query que filtra por customerType e invoiceId	
 		public Invoice getInvByCustomerInvoiceId(@Param("recordCustomerType") String recordCustomerType,
-				@Param("recordInvoiceId") String recordInvoiceId)
-				throws RepositoryException;
+				@Param("recordInvoiceId") String recordInvoiceId) throws RepositoryException;
 		
-				
 // Este es el query que filtra por customerType e idType obtendra un client
 		public List<Client> getClientByCustomerTypeIdType(@Param("recordCustomerType") String recordCustomerType,
 				@Param("recordIdType") String recordIdType)

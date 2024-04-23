@@ -102,7 +102,7 @@ public class GeneralResource {
 		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
 
 	}
-
+	
 	@GetMapping("/{customerType}/{invoiceId}")
 	public ResponseEntity<ResponseObjectDto> getInvoiceClientB(@PathVariable("customerType") String customerType,
 			@PathVariable("invoiceId") String invoiceId, HttpServletRequest request) {
@@ -112,16 +112,14 @@ public class GeneralResource {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		requestLog(request, sessionLogId);
 
-		if (customerType == null || customerType.isEmpty()
-				|| !customerTypeMap.containsKey(customerType.toUpperCase())) {
+		if (customerType == null || customerType.isEmpty()) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'customerType' no es valido");
 		}
 		if (invoiceId == null || invoiceId.isEmpty()) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'invoiceId' no es valido");
 		}
 		
-		responseObj = responseObjectService.getQueryRecordsB(ofNullable(customerType), ofNullable(invoiceId),
-				sessionLogId);
+		responseObj = responseObjectService.getQueryRecordsB(ofNullable(customerType), ofNullable(invoiceId), sessionLogId);
 		
 		if (responseObj == null || responseObj.getData() == null || responseObj.getData().getInvoices().isEmpty()) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
@@ -131,7 +129,7 @@ public class GeneralResource {
 		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
 
 	}
-	
+
 	@GetMapping("/{customerType}/{idType}/{billingPeriod}")
 	public ResponseEntity<ResponseObjectDto> getQueryRecordsC(@PathVariable("customerType") String customerType,
 			@PathVariable("idType") String idType, @PathVariable("billingPeriod") String billingPeriod, 

@@ -34,7 +34,6 @@ public class ResponseObjectService {
 		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
 		responseObjectDto.setData(new Data());
 
-		// Comprueba si invoiceId está presente antes de usarlo
 		if (invoiceId.isPresent()) {
 			responseObjectDto.getData().setInvoices(
 					rQueryRepository.getInvoicesQuery(customerType, idType, clientId, billingPeriod, invoiceId));
@@ -61,7 +60,11 @@ public class ResponseObjectService {
 		invoice = invoiceService.getById(invoiceId);
 		String clientId = invoice.getClient().getClientId();
 		Client client = rQueryRepository.getClientById(Optional.of(clientId));
-
+		
+		if(!"MOBILE".equalsIgnoreCase(client.getCustomerType())) {
+			String inv = invoiceId.get();
+			throw new IllegalArgumentException("El customerType del: " + inv +  " no es: 'MOBILE'");
+		}
 		invoice.setClient(client);
 
 		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
