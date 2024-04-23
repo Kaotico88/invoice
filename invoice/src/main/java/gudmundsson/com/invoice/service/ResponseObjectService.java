@@ -27,7 +27,7 @@ public class ResponseObjectService {
 	@Autowired
 	private ClientService clientService;
 
-	public ResponseObjectDto getQueryRecords(Optional<String> customerType, Optional<String> idType,
+	public ResponseObjectDto getQueryRecordsA(Optional<String> customerType, Optional<String> idType,
 			Optional<String> clientId, Optional<String> billingPeriod, Optional<String> invoiceId, String sessionLogId)
 			throws RepositoryException {
 
