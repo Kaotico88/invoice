@@ -99,7 +99,8 @@
             	   c.clie_id_type, 
             	   c.clie_client_id, 
             	   i.inv_billing_period, 
-            	   i.inv_invoice_id   
+            	   i.inv_invoice_id,
+            	   i.inv_total_amount   
               FROM invoice i
               INNER JOIN client c ON c.clie_client_id = i.inv_clie_client_id
         ]]>
