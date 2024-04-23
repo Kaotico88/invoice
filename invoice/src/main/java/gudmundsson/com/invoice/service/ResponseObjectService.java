@@ -87,6 +87,12 @@ public class ResponseObjectService {
 		List<Invoice> invoices = new ArrayList<>();
 		for(String clientId : clientIds) {
 			List<Invoice> clientInvoices = rQueryRepository.getInvoicesByClient(Optional.of(clientId), billingPeriod);
+			for (Invoice clientInvoice : clientInvoices) {
+				Invoice invoice = invoiceService.getById(Optional.of(clientInvoice.getInvoiceId()));
+				String id = invoice.getClient().getClientId();
+				Client client = rQueryRepository.getClientById(Optional.of(id));
+				clientInvoice.setClient(client);
+			}
 			invoices.addAll(clientInvoices);
 		}
 		
