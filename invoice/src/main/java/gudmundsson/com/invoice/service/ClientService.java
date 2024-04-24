@@ -15,9 +15,9 @@ public class ClientService {
 	@Autowired
 	private RQueryRepository rQueryRepository;
 	
-	public List<Client> getByCustomerIdType(Optional<String> customerType, Optional<String> idType) {
+	public List<Client> getByCustomerIdType(Optional<String> idType) {
 		List<Client> clients;
-		clients = rQueryRepository.getClientByCustomerTypeIdType(customerType, idType);
+		clients = rQueryRepository.getClientByCustomerTypeIdType(idType);
 		return clients;	
 	}
 }

@@ -52,10 +52,10 @@ public class ResponseObjectService {
 		return responseObjectDto;
 	}
 
-	public ResponseObjectDto getQueryRecordsB(Optional<String> customerType, Optional<String> invoiceId,
+	public ResponseObjectDto getQueryRecordsB(Optional<String> invoiceId,
 			String sessionLogId) throws RepositoryException {
 
-		Invoice invoice = rQueryRepository.getInvByCustomerInvoiceId(customerType, invoiceId);
+		Invoice invoice = rQueryRepository.getInvByCustomerInvoiceId(invoiceId);
 
 		invoice = invoiceService.getById(invoiceId);
 		String clientId = invoice.getClient().getClientId();
@@ -78,10 +78,10 @@ public class ResponseObjectService {
 		return responseObjectDto;
 	}
 	
-	public ResponseObjectDto getQueryRecordsC(Optional<String> customerType, Optional<String> idType, Optional<String> billingPeriod, 
+	public ResponseObjectDto getQueryRecordsC(Optional<String> idType, Optional<String> billingPeriod, 
 			String sessionLogId) throws RepositoryException {
 		
-		List<Client> clients = clientService.getByCustomerIdType(customerType, idType);
+		List<Client> clients = clientService.getByCustomerIdType(idType);
 		List<String> clientIds = clients.stream().map(Client::getClientId).collect(Collectors.toList());
 		
 		List<Invoice> invoices = new ArrayList<>();
