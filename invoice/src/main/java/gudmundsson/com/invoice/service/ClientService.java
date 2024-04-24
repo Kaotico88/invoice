@@ -1,5 +1,6 @@
 package gudmundsson.com.invoice.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,9 +16,15 @@ public class ClientService {
 	@Autowired
 	private RQueryRepository rQueryRepository;
 	
-	public List<Client> getByCustomerIdType(Optional<String> idType) {
-		List<Client> clients;
-		clients = rQueryRepository.getClientByCustomerTypeIdType(idType);
+	public List<Client> getByCustomerIdTypeMOBILE(Optional<String> idType) {
+		List<Client> clients = new ArrayList<>();
+		clients = rQueryRepository.getClientByCustomerTypeIdTypeMOBILE(idType);
+		return clients;	
+	}
+	
+	public List<Client> getByCustomerIdTypeHOME(Optional<String> idType) {
+		List<Client> clients = new ArrayList<>();
+		clients = rQueryRepository.getClientByCustomerTypeIdTypeHOME(idType);
 		return clients;	
 	}
 }

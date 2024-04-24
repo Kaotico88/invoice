@@ -192,8 +192,8 @@
         </where>
     </select>
     
-    <!-- Este es muy parecido solo que es de client nada mas con los parametros de customerType y idType-->
-    <select id="getClientByCustomerTypeIdType" resultMap="ClientResultMap">
+    <!-- Este es muy parecido solo que es de client nada mas con los parametros de customerType y idType Para MOBILE-->
+    <select id="getClientByCustomerTypeIdTypeMOBILE" resultMap="ClientResultMap">
         <![CDATA[
             SELECT *
               FROM client
@@ -207,11 +207,27 @@
         </where>
     </select>
     
+    <!-- Este es muy parecido solo que es de client nada mas con los parametros de customerType y idType Para HOME-->
+    <select id="getClientByCustomerTypeIdTypeHOME" resultMap="ClientResultMap">
+        <![CDATA[
+            SELECT *
+              FROM client
+        ]]>
+        <where>
+               AND clie_customer_type IN ('HOME', 'CONVERGENT')
+              
+            <if test="recordIdType != null">
+               AND clie_id_type = #{recordIdType}
+            </if>
+        </where>
+    </select>
+    
     <!-- Este query obtiene un invoice segun customerType, idType, billingPeriod & invoiceId-->
     <select id="getInvByCustomerIdTypeBillingInvoiceId" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT c.clie_customer_type, 
-            	   c.clie_id_type,  
+            	   c.clie_id_type,
+            	   c.clie_msisdn,  
             	   i.inv_billing_period, 
             	   i.inv_invoice_id   
               FROM invoice i

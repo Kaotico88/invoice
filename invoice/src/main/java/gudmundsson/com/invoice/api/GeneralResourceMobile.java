@@ -186,7 +186,6 @@ public class GeneralResourceMobile {
 
 	}
 	
-		
 	private synchronized void requestLog(HttpServletRequest request, String sessionLogId) {
 		AElog.infoX(logger,
 				sessionLogId + util.getInetAddressPort() + " <= " + request.getRemoteHost() + " {method:"

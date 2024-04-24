@@ -81,7 +81,7 @@ public class ResponseObjectService {
 	public ResponseObjectDto getQueryRecordsC(Optional<String> idType, Optional<String> billingPeriod, 
 			String sessionLogId) throws RepositoryException {
 		
-		List<Client> clients = clientService.getByCustomerIdType(idType);
+		List<Client> clients = clientService.getByCustomerIdTypeMOBILE(idType);
 		List<String> clientIds = clients.stream().map(Client::getClientId).collect(Collectors.toList());
 		
 		List<Invoice> invoices = new ArrayList<>();
@@ -104,21 +104,21 @@ public class ResponseObjectService {
 		
 	}
 	
-	public ResponseObjectDto getQueryRecordsD(Optional<String> idType, Optional<String> billingPeriod, 
-			Optional<String> invoiceId, String sessionLogId) throws RepositoryException {
-		
-		Invoice invoice = rQueryRepository.getInvByCustomerIdTypeBillingInvoiceId(idType, billingPeriod, invoiceId);
-		invoice = invoiceService.getById(invoiceId);
-		
-		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
-		responseObjectDto.setData(new Data());
-		List<Invoice> invoices = new ArrayList<>();
-		invoices.add(invoice);
-		responseObjectDto.getData().setInvoices(invoices);
-	
-		return responseObjectDto;
-		
-	}
+//	public ResponseObjectDto getQueryRecordsD(Optional<String> idType, Optional<String> billingPeriod, 
+//			Optional<String> invoiceId, String sessionLogId) throws RepositoryException {
+//		
+//		Invoice invoice = rQueryRepository.getInvByCustomerIdTypeBillingInvoiceId(idType, billingPeriod, invoiceId);
+//		invoice = invoiceService.getById(invoiceId);
+//		
+//		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
+//		responseObjectDto.setData(new Data());
+//		List<Invoice> invoices = new ArrayList<>();
+//		invoices.add(invoice);
+//		responseObjectDto.getData().setInvoices(invoices);
+//	
+//		return responseObjectDto;
+//		
+//	}
 	
 	public ResponseObjectDto getQueryRecordsE(Optional<String> idType, Optional<String> billingPeriod, 
 			Optional<String> invoiceId, String sessionLogId) throws RepositoryException {
@@ -129,8 +129,13 @@ public class ResponseObjectService {
 			invoice = rQueryRepository.getInvByCustomerIdTypeBillingInvoiceId(idType, billingPeriod, invoiceId);
 			invoice = invoiceService.getById(invoiceId);
 		}else {
-			List<Client> clients = clientService.getByCustomerIdType(idType);
+			List<Client> clients = clientService.getByCustomerIdTypeHOME(idType);
+			System.out.println("El valor de clients: " + clients.size());
+			System.out.println("El valor de clients: " + clients.get(0).getIdType());
+			System.out.println("El valor de clients: " + clients.get(1).getIdType());
+			
 			List<String> clientIds = clients.stream().map(Client::getClientId).collect(Collectors.toList());
+			System.out.println("El valor de clientIds: " + clientIds);
 			
 			List<Invoice> allInvoices = new ArrayList<>();
 			for(String clientId : clientIds) {
