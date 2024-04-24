@@ -105,9 +105,9 @@
               INNER JOIN client c ON c.clie_client_id = i.inv_clie_client_id
         ]]>
         <where>
-			<if test="recordCustomerType != null">
-               AND c.clie_customer_type = #{recordCustomerType}
-            </if>
+			
+               AND c.clie_customer_type = 'MOBILE'
+            
             <if test="recordIdType != null">
                AND c.clie_id_type = #{recordIdType}
             </if>
@@ -136,9 +136,9 @@
               INNER JOIN client c ON c.clie_client_id = i.inv_clie_client_id
         ]]>
         <where>
-			<if test="recordCustomerType != null">
-               AND c.clie_customer_type = #{recordCustomerType}
-            </if>
+			
+               AND c.clie_customer_type = 'MOBILE'
+            
             <if test="recordIdType != null">
                AND c.clie_id_type = #{recordIdType}
             </if>

@@ -27,7 +27,7 @@ public class ResponseObjectService {
 	@Autowired
 	private ClientService clientService;
 
-	public ResponseObjectDto getQueryRecordsA(Optional<String> customerType, Optional<String> idType,
+	public ResponseObjectDto getQueryRecordsA(Optional<String> idType,
 			Optional<String> clientId, Optional<String> billingPeriod, Optional<String> invoiceId, String sessionLogId)
 			throws RepositoryException {
 
@@ -36,10 +36,10 @@ public class ResponseObjectService {
 
 		if (invoiceId.isPresent()) {
 			responseObjectDto.getData().setInvoices(
-					rQueryRepository.getInvoicesQuery(customerType, idType, clientId, billingPeriod, invoiceId));
+					rQueryRepository.getInvoicesQuery(idType, clientId, billingPeriod, invoiceId));
 		} else {
 			responseObjectDto.getData().setInvoices(
-					rQueryRepository.getInvoicesWithoutInvoiceId(customerType, idType, clientId, billingPeriod));
+					rQueryRepository.getInvoicesWithoutInvoiceId(idType, clientId, billingPeriod));
 		}
 
 		List<Invoice> invoices = responseObjectDto.getData().getInvoices();

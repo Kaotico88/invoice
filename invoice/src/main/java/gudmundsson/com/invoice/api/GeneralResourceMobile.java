@@ -26,9 +26,9 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/v1/tigo/BO/invoices")
-public class GeneralResource {
+public class GeneralResourceMobile {
 
-	private static final Logger logger = LoggerFactory.getLogger(GeneralResource.class);
+	private static final Logger logger = LoggerFactory.getLogger(GeneralResourceMobile.class);
 
 	@Autowired
 	private AEutil util;
@@ -40,7 +40,7 @@ public class GeneralResource {
 
 	private HashMap<String, String> idTypeMap;
 
-	public GeneralResource() {
+	public GeneralResourceMobile() {
 		customerTypeMap = new HashMap<>();
 		customerTypeMap.put("MOBILE", "MOBILE");
 		customerTypeMap.put("HOME", "HOME");
@@ -60,14 +60,14 @@ public class GeneralResource {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		requestLog(request, "X: ");
 
-		object = new HealthMessage("Service is operating normally!!");
+		object = new HealthMessage("Service is operating normally in MOBILE!!");
 
 		responseHeaders.set("Custom-Message", "HTTP/1.1 200 OK");
 		return new ResponseEntity<Object>(object, responseHeaders, HttpStatus.OK);
 	}
 
-	@GetMapping("/{customerType}/{idType}/{clientId}/{billingPeriod}")
-	public ResponseEntity<ResponseObjectDto> getInvoiceClientA(@PathVariable("customerType") String customerType,
+	@GetMapping("/MOBILE/{idType}/{clientId}/{billingPeriod}")
+	public ResponseEntity<ResponseObjectDto> getInvoiceClientA(
 			@PathVariable("idType") String idType, @PathVariable("clientId") String clientId,
 			@PathVariable("billingPeriod") String billingPeriod,
 			@RequestParam(name = "invoiceId", required = false) String invoiceId, HttpServletRequest request) {
@@ -77,10 +77,10 @@ public class GeneralResource {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		requestLog(request, sessionLogId);
 
-		if (customerType == null || customerType.isEmpty()
-				|| !customerTypeMap.containsKey(customerType.toUpperCase())) {
-			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'customerType' no es valido");
-		}
+//		if (customerType == null || customerType.isEmpty()
+//				|| !customerTypeMap.containsKey(customerType.toUpperCase())) {
+//			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'customerType' no es valido");
+//		}
 		if (idType == null || idType.isEmpty() || !idTypeMap.containsKey(idType.toUpperCase())) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'idType' no es valido");
 		}
@@ -91,7 +91,7 @@ public class GeneralResource {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'billingPeriod' no es valido");
 		}
 
-		responseObj = responseObjectService.getQueryRecordsA(ofNullable(customerType), ofNullable(idType),
+		responseObj = responseObjectService.getQueryRecordsA(ofNullable(idType),
 				ofNullable(clientId), ofNullable(billingPeriod), ofNullable(invoiceId), sessionLogId);
 
 		if (responseObj == null || responseObj.getData() == null || responseObj.getData().getInvoices().isEmpty()) {
@@ -200,7 +200,8 @@ public class GeneralResource {
 //		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
 //
 //	}
-
+	
+		
 	private synchronized void requestLog(HttpServletRequest request, String sessionLogId) {
 		AElog.infoX(logger,
 				sessionLogId + util.getInetAddressPort() + " <= " + request.getRemoteHost() + " {method:"
