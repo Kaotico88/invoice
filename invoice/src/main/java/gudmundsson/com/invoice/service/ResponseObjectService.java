@@ -104,10 +104,10 @@ public class ResponseObjectService {
 		
 	}
 	
-	public ResponseObjectDto getQueryRecordsD(Optional<String> customerType, Optional<String> idType, Optional<String> billingPeriod, 
+	public ResponseObjectDto getQueryRecordsD(Optional<String> idType, Optional<String> billingPeriod, 
 			Optional<String> invoiceId, String sessionLogId) throws RepositoryException {
 		
-		Invoice invoice = rQueryRepository.getInvByCustomerIdTypeBillingInvoiceId(customerType, idType, billingPeriod, invoiceId);
+		Invoice invoice = rQueryRepository.getInvByCustomerIdTypeBillingInvoiceId(idType, billingPeriod, invoiceId);
 		invoice = invoiceService.getById(invoiceId);
 		
 		ResponseObjectDto responseObjectDto = new ResponseObjectDto();

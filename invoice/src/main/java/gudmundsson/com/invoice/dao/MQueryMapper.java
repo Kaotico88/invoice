@@ -74,7 +74,7 @@ public interface MQueryMapper {
 				throws RepositoryException;
 		
 // Este sera el query que filtra customerType, idType, billingPeriod & invoiceId		
-		public Invoice getInvByCustomerIdTypeBillingInvoiceId(@Param("recordCustomerType") String recordCustomerType,
+		public Invoice getInvByCustomerIdTypeBillingInvoiceId(
 				@Param("recordIdType") String recordIdType, @Param("recordBillingPeriod") String recordBillingPeriod, 
 				@Param("recordInvoiceId") String recordInvoiceId)
 				throws RepositoryException;
