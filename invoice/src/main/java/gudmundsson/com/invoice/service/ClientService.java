@@ -22,9 +22,9 @@ public class ClientService {
 		return clients;	
 	}
 	
-	public List<Client> getByCustomerIdTypeHOME(Optional<String> idType) {
+	public List<Client> getClientByHOMEIdType(Optional<String> idType) {
 		List<Client> clients = new ArrayList<>();
-		clients = rQueryRepository.getClientByCustomerTypeIdTypeHOME(idType);
+		clients = rQueryRepository.getClientByHOMEIdType(idType);
 		return clients;	
 	}
 }

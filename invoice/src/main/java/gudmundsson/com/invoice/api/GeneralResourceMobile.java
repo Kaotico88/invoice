@@ -67,9 +67,8 @@ public class GeneralResourceMobile {
 	}
 
 	@GetMapping("/MOBILE/{idType}/{clientId}/{billingPeriod}")
-	public ResponseEntity<ResponseObjectDto> getInvoiceClientA(
-			@PathVariable("idType") String idType, @PathVariable("clientId") String clientId,
-			@PathVariable("billingPeriod") String billingPeriod,
+	public ResponseEntity<ResponseObjectDto> getInvoiceClientA(@PathVariable("idType") String idType,
+			@PathVariable("clientId") String clientId, @PathVariable("billingPeriod") String billingPeriod,
 			@RequestParam(name = "invoiceId", required = false) String invoiceId, HttpServletRequest request) {
 
 		String sessionLogId = System.currentTimeMillis() + ": ";
@@ -87,8 +86,8 @@ public class GeneralResourceMobile {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'billingPeriod' no es valido");
 		}
 
-		responseObj = responseObjectService.getQueryRecordsA(ofNullable(idType),
-				ofNullable(clientId), ofNullable(billingPeriod), ofNullable(invoiceId), sessionLogId);
+		responseObj = responseObjectService.getQueryRecordsA(ofNullable(idType), ofNullable(clientId),
+				ofNullable(billingPeriod), ofNullable(invoiceId), sessionLogId);
 
 		if (responseObj == null || responseObj.getData() == null || responseObj.getData().getInvoices().isEmpty()) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
@@ -98,22 +97,22 @@ public class GeneralResourceMobile {
 		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
 
 	}
-	
+
 	@GetMapping("/MOBILE/{invoiceId}")
-	public ResponseEntity<ResponseObjectDto> getInvoiceClientB(
-			@PathVariable("invoiceId") String invoiceId, HttpServletRequest request) {
+	public ResponseEntity<ResponseObjectDto> getInvoiceClientB(@PathVariable("invoiceId") String invoiceId,
+			HttpServletRequest request) {
 
 		String sessionLogId = System.currentTimeMillis() + ": ";
 		ResponseObjectDto responseObj = new ResponseObjectDto();// este es el objetito
 		HttpHeaders responseHeaders = new HttpHeaders();
 		requestLog(request, sessionLogId);
-		
+
 		if (invoiceId == null || invoiceId.isEmpty()) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'invoiceId' no es valido");
 		}
-		
+
 		responseObj = responseObjectService.getQueryRecordsB(ofNullable(invoiceId), sessionLogId);
-		
+
 		if (responseObj == null || responseObj.getData() == null || responseObj.getData().getInvoices().isEmpty()) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
 		}
@@ -124,9 +123,8 @@ public class GeneralResourceMobile {
 	}
 
 	@GetMapping("/MOBILE/{idType}/{billingPeriod}")
-	public ResponseEntity<ResponseObjectDto> getInvoiceClientC(
-			@PathVariable("idType") String idType, @PathVariable("billingPeriod") String billingPeriod, 
-			HttpServletRequest request) {
+	public ResponseEntity<ResponseObjectDto> getInvoiceClientC(@PathVariable("idType") String idType,
+			@PathVariable("billingPeriod") String billingPeriod, HttpServletRequest request) {
 
 		String sessionLogId = System.currentTimeMillis() + ": ";
 		ResponseObjectDto responseObj = new ResponseObjectDto();// este es el objetito
@@ -136,14 +134,14 @@ public class GeneralResourceMobile {
 		if (idType == null || idType.isEmpty()) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'idType' no es valido");
 		}
-		
+
 		if (billingPeriod == null || billingPeriod.isEmpty()) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'billingPeriod' no es valido");
 		}
-		
-		responseObj = responseObjectService.getQueryRecordsC(ofNullable(idType), 
-				ofNullable(billingPeriod), sessionLogId);
-		
+
+		responseObj = responseObjectService.getQueryRecordsC(ofNullable(idType), ofNullable(billingPeriod),
+				sessionLogId);
+
 		if (responseObj == null || responseObj.getData() == null || responseObj.getData().getInvoices().isEmpty()) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
 		}
@@ -152,10 +150,10 @@ public class GeneralResourceMobile {
 		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
 
 	}
-	
-	@GetMapping({"/HOME/{idType}/{billingPeriod}", "/CONVERGENT/{idType}/{billingPeriod}"})
-	public ResponseEntity<ResponseObjectDto> getInvoiceClientD(
-			@PathVariable("idType") String idType, @PathVariable("billingPeriod") String billingPeriod,
+
+	@GetMapping({ "/HOME/{idType}/{billingPeriod}", "/CONVERGENT/{idType}/{billingPeriod}" })
+	public ResponseEntity<ResponseObjectDto> getInvoiceClientD(@PathVariable("idType") String idType,
+			@PathVariable("billingPeriod") String billingPeriod,
 			@RequestParam(name = "invoiceId", required = false) String invoiceId, HttpServletRequest request) {
 
 		String sessionLogId = System.currentTimeMillis() + ": ";
@@ -166,14 +164,14 @@ public class GeneralResourceMobile {
 		if (idType == null || idType.isEmpty()) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'idType' no es valido");
 		}
-		
+
 		if (billingPeriod == null || billingPeriod.isEmpty()) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'billingPeriod' no es valido");
 		}
-		
-		responseObj = responseObjectService.getQueryRecordsD(ofNullable(idType), 
-				ofNullable(billingPeriod), ofNullable(invoiceId), sessionLogId);
-		
+
+		responseObj = responseObjectService.getQueryRecordsD(ofNullable(idType), ofNullable(billingPeriod),
+				ofNullable(invoiceId), sessionLogId);
+
 		if (responseObj == null || responseObj.getData() == null || responseObj.getData().getInvoices().isEmpty()) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
 		}
@@ -182,7 +180,7 @@ public class GeneralResourceMobile {
 		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
 
 	}
-	
+
 	private synchronized void requestLog(HttpServletRequest request, String sessionLogId) {
 		AElog.infoX(logger,
 				sessionLogId + util.getInetAddressPort() + " <= " + request.getRemoteHost() + " {method:"

@@ -48,38 +48,32 @@ public interface MQueryMapper {
 			throws RepositoryException;
 
 // esto es lo que se modifica para traer todos los parametros requeridos	
-	public List<Invoice> getInvoicesQuery(
-			@Param("recordIdType") String recordIdType, @Param("recordClientId") String recordClientId,
+	public List<Invoice> getInvoicesQueryA1(@Param("recordIdType") String recordIdType,
+			@Param("recordClientId") String recordClientId, @Param("recordBillingPeriod") String recordBillingPeriod,
+			@Param("recordInvoiceId") String recordInvoiceId) throws RepositoryException;
+
+// Este es el query que no require del InvoiceId	
+	public List<Invoice> getInvoicesQueryA2(@Param("recordIdType") String recordIdType,
+			@Param("recordClientId") String recordClientId, @Param("recordBillingPeriod") String recordBillingPeriod)
+			throws RepositoryException;
+
+// Este es el query que filtra por customerType e invoiceId	
+	public Invoice getInvoiceByIdB(@Param("recordInvoiceId") String recordInvoiceId)
+			throws RepositoryException;
+
+// Este es el query que filtra por customerType e idType obtendra un client
+	public List<Client> getClientByCustomerTypeIdTypeMOBILE(@Param("recordIdType") String recordIdType)
+			throws RepositoryException;
+
+	public List<Client> getClientByHOMEIdType(@Param("recordIdType") String recordIdType)
+			throws RepositoryException;
+
+// Este sera el query que filtra por cliente y billing period y me devuleve una lista de invoices
+	public List<Invoice> getInvoicesByClient(@Param("recordClientId") String recordClientId,
+			@Param("recordBillingPeriod") String recordBillingPeriod) throws RepositoryException;
+
+// Este sera el query que filtra customerType, idType, billingPeriod & invoiceId		
+	public Invoice getInvByHOMEIdTypeBillingInvoiceId(@Param("recordIdType") String recordIdType,
 			@Param("recordBillingPeriod") String recordBillingPeriod, @Param("recordInvoiceId") String recordInvoiceId)
 			throws RepositoryException;
-	
-// Este es el query que no require del InvoiceId	
-		public List<Invoice> getInvoicesWithoutInvoiceId(
-				@Param("recordIdType") String recordIdType, @Param("recordClientId") String recordClientId,
-				@Param("recordBillingPeriod") String recordBillingPeriod)
-				throws RepositoryException;
- 		
-// Este es el query que filtra por customerType e invoiceId	
-		public Invoice getInvByCustomerInvoiceId(
-				@Param("recordInvoiceId") String recordInvoiceId) throws RepositoryException;
-		
-// Este es el query que filtra por customerType e idType obtendra un client
-		public List<Client> getClientByCustomerTypeIdTypeMOBILE(
-				@Param("recordIdType") String recordIdType)
-				throws RepositoryException;
-		
-		public List<Client> getClientByCustomerTypeIdTypeHOME(
-				@Param("recordIdType") String recordIdType)
-				throws RepositoryException;
-		
-// Este sera el query que filtra por cliente y billing period y me devuleve una lista de invoices
-		public List<Invoice> getInvoicesByClient(@Param("recordClientId") String recordClientId,
-				@Param("recordBillingPeriod") String recordBillingPeriod)
-				throws RepositoryException;
-		
-// Este sera el query que filtra customerType, idType, billingPeriod & invoiceId		
-		public Invoice getInvByCustomerIdTypeBillingInvoiceId(
-				@Param("recordIdType") String recordIdType, @Param("recordBillingPeriod") String recordBillingPeriod, 
-				@Param("recordInvoiceId") String recordInvoiceId)
-				throws RepositoryException;
 }

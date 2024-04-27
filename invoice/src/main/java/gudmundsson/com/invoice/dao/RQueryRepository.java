@@ -69,23 +69,23 @@ public class RQueryRepository {
 		return mQueryMapper.getClientQuery(customerType.orElse(null), idtype.orElse(null), clientId.orElse(null));
 	}
 
-	public List<Invoice> getInvoicesQuery(Optional<String> idType,
+	public List<Invoice> getInvoicesQueryA1(Optional<String> idType,
 			Optional<String> clientId, Optional<String> billingPeriod, Optional<String> invoiceId)
 			throws RepositoryException {
-		return mQueryMapper.getInvoicesQuery(idType.orElse(null), clientId.orElse(null), 
+		return mQueryMapper.getInvoicesQueryA1(idType.orElse(null), clientId.orElse(null), 
 				billingPeriod.orElse(null), invoiceId.orElse(null));
 	}
 	
-	public List<Invoice> getInvoicesWithoutInvoiceId(Optional<String> idType,
+	public List<Invoice> getInvoicesQueryA2(Optional<String> idType,
 			Optional<String> clientId, Optional<String> billingPeriod)
 			throws RepositoryException {
-		return mQueryMapper.getInvoicesWithoutInvoiceId(idType.orElse(null), clientId.orElse(null), 
+		return mQueryMapper.getInvoicesQueryA2(idType.orElse(null), clientId.orElse(null), 
 				billingPeriod.orElse(null));
 	}
 	
-	public Invoice getInvByCustomerInvoiceId(Optional<String> invoiceId)
+	public Invoice getInvoiceByIdB(Optional<String> invoiceId)
 			throws RepositoryException {
-		return mQueryMapper.getInvByCustomerInvoiceId( invoiceId.orElse(null));
+		return mQueryMapper.getInvoiceByIdB(invoiceId.orElse(null));
 	}
 	
 	public List<Client> getClientByCustomerTypeIdTypeMOBILE(Optional<String> idType) 
@@ -93,9 +93,9 @@ public class RQueryRepository {
 		return mQueryMapper.getClientByCustomerTypeIdTypeMOBILE(idType.orElse(null));
 	}
 	
-	public List<Client> getClientByCustomerTypeIdTypeHOME(Optional<String> idType) 
+	public List<Client> getClientByHOMEIdType(Optional<String> idType) 
 			throws RepositoryException {
-		return mQueryMapper.getClientByCustomerTypeIdTypeHOME(idType.orElse(null));
+		return mQueryMapper.getClientByHOMEIdType(idType.orElse(null));
 	}
 	
 	public List<Invoice> getInvoicesByClient(Optional<String> clientId, Optional<String> billingPeriod)
@@ -103,9 +103,9 @@ public class RQueryRepository {
 		return mQueryMapper.getInvoicesByClient(clientId.orElse(null), billingPeriod.orElse(null));
 	}
 	
-	public Invoice getInvByCustomerIdTypeBillingInvoiceId(Optional<String> idType,
+	public Invoice getInvByHOMEIdTypeBillingInvoiceId(Optional<String> idType,
 			Optional<String> billingPeriod, Optional<String> invoiceId )throws RepositoryException {
-		return mQueryMapper.getInvByCustomerIdTypeBillingInvoiceId(idType.orElse(null),
+		return mQueryMapper.getInvByHOMEIdTypeBillingInvoiceId(idType.orElse(null),
 				billingPeriod.orElse(null), invoiceId.orElse(null));
 	}
 }

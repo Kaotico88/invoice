@@ -15,7 +15,7 @@ public class InvoiceService {
 	@Autowired
 	private RQueryRepository rQueryRepository;
 	
-	public Invoice getById(Optional<String> id) {
+	public Invoice getInvoiceByIdImprove(Optional<String> id) {
 		Invoice improveInvo = new Invoice();
 		Client client;
 		improveInvo = rQueryRepository.getInvoiceById(id);

@@ -92,8 +92,8 @@
         </where>
     </select>
     
-     <!-- Invoice query que llama a lo que se require se fuciona para llamar parametros de las dos entidades incluido invoideId -->
-    <select id="getInvoicesQuery" resultMap="InvoiceResultMap">
+     <!-- Este query llama a todos los parametros requeridos en la solicitud incluido el 'invoiceId'-->
+    <select id="getInvoicesQueryA1" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT c.clie_customer_type, 
             	   c.clie_id_type, 
@@ -124,8 +124,8 @@
         </where>
     </select>
     
-    <!-- Este es el query que no usara InvoiceId pero consumira por los otros parametros -->
-    <select id="getInvoicesWithoutInvoiceId" resultMap="InvoiceResultMap">
+    <!-- Este query llama a todos los parametros requeridos en la solicitud exclutyendo a 'invoiceId' -->
+    <select id="getInvoicesQueryA2" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT c.clie_customer_type, 
             	   c.clie_id_type, 
@@ -151,8 +151,8 @@
         </where>
     </select>
    
-    <!-- Este es el query que solo tiene customerType= MOBILE e invoiceId -->
-    <select id="getInvByCustomerInvoiceId" resultMap="InvoiceResultMap">
+    <!-- Este es el query que requiere customerType = MOBILE e invoiceId ademas de los parametros requeridos por la solicitud -->
+    <select id="getInvoiceByIdB" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT c.clie_customer_type,  
             	   c.clie_client_id,
@@ -207,8 +207,8 @@
         </where>
     </select>
     
-    <!-- Este es muy parecido solo que es de client nada mas con los parametros de customerType y idType Para HOME-->
-    <select id="getClientByCustomerTypeIdTypeHOME" resultMap="ClientResultMap">
+    <!-- Este es muy parecido getClientByCustomerTypeIdTypeHOME solo que es de client nada mas con los parametros de customerType y idType Para HOME-->
+    <select id="getClientByHOMEIdType" resultMap="ClientResultMap">
         <![CDATA[
             SELECT *
               FROM client
@@ -222,8 +222,8 @@
         </where>
     </select>
     
-    <!-- Este query obtiene un invoice segun customerType, idType, billingPeriod & invoiceId-->
-    <select id="getInvByCustomerIdTypeBillingInvoiceId" resultMap="InvoiceResultMap">
+    <!-- Este query obtiene un invoice segun customerType = HOME, idType, billingPeriod & invoiceId-->
+    <select id="getInvByHOMEIdTypeBillingInvoiceId" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT c.clie_customer_type, 
             	   c.clie_id_type,
