@@ -207,7 +207,7 @@
         </where>
     </select>
     
-    <!-- Este es muy parecido getClientByCustomerTypeIdTypeHOME solo que es de client nada mas con los parametros de customerType y idType Para HOME-->
+    <!-- Este qury devuelve un cliente a partir del customerType = 'HOME/CONVERGENT' & el parametro idType-->
     <select id="getClientByHOMEIdType" resultMap="ClientResultMap">
         <![CDATA[
             SELECT *
