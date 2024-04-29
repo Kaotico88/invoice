@@ -131,7 +131,8 @@
             	   c.clie_id_type, 
             	   c.clie_client_id, 
             	   i.inv_billing_period, 
-            	   i.inv_invoice_id   
+            	   i.inv_invoice_id,
+            	   i.inv_total_amount   
               FROM invoice i
               INNER JOIN client c ON c.clie_client_id = i.inv_clie_client_id
         ]]>
@@ -248,14 +249,20 @@
         </where>
     </select>
     
+    <!-- Este query obtiene un service a partir del clientId -->
+    
      <!-- Service By Id-->
-    <select id="getServiceById" resultMap="ServiceResultMap">
+    <select id="getServiceByClientId" resultMap="ServiceResultMap">
         <![CDATA[
-            SELECT *
-              FROM service
+            SELECT s.serv_service_id, 
+            	   s.serv_service_name, 
+            	   s.serv_service_amount, 
+            	   s.serv_clie_client_id
+              FROM service s
+              INNER JOIN aebytes.client c ON s.serv_clie_client_id = c.clie_client_id
         ]]>
         <where>
-               AND serv_service_id = #{objectId}
+               AND s.serv_clie_client_id = #{recordClientId}
         </where>
     </select>
     

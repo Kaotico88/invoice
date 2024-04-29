@@ -108,4 +108,8 @@ public class RQueryRepository {
 		return mQueryMapper.getInvByHOMEIdTypeBillingInvoiceId(idType.orElse(null),
 				billingPeriod.orElse(null), invoiceId.orElse(null));
 	}
+	
+	public List<Service> getServiceByClientId(Optional<String> clientId) throws RepositoryException {
+		return mQueryMapper.getServiceByClientId(clientId.orElse(null));
+	}
 }

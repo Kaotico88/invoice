@@ -37,9 +37,13 @@ public class ResponseObjectService {
 		if (invoiceId.isPresent()) {
 			responseObjectDto.getData()
 					.setInvoices(rQueryRepository.getInvoicesQueryA1(idType, clientId, billingPeriod, invoiceId));
+			responseObjectDto.getData()
+					.setServices(rQueryRepository.getServiceByClientId(clientId));
 		} else {
 			responseObjectDto.getData()
 					.setInvoices(rQueryRepository.getInvoicesQueryA2(idType, clientId, billingPeriod));
+			responseObjectDto.getData()
+			.setServices(rQueryRepository.getServiceByClientId(clientId));
 		}
 
 		List<Invoice> invoices = responseObjectDto.getData().getInvoices();
@@ -48,7 +52,7 @@ public class ResponseObjectService {
 			Client client = rQueryRepository.getClientById(clientId);
 			invoice.setClient(client);
 		}
-
+		
 		return responseObjectDto;
 	}
 

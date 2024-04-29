@@ -9,14 +9,14 @@ import gudmundsson.com.invoice.core.Service;
 public class Data {
 
 	private List<Invoice> invoices;
-	
+
 	private List<Service> services;
-	
+
 	public Data() {
 		this.invoices = new ArrayList<>();
 		this.services = new ArrayList<>();
 	}
-	
+
 	public List<Invoice> getInvoices() {
 		return invoices;
 	}
@@ -32,7 +32,5 @@ public class Data {
 	public void setServices(List<Service> services) {
 		this.services = services;
 	}
-	
-	
-	
+
 }
