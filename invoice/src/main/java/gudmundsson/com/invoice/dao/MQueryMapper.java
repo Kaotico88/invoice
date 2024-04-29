@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import gudmundsson.com.invoice.core.Client;
 import gudmundsson.com.invoice.core.Invoice;
 import gudmundsson.com.invoice.core.InvoiceService;
-import gudmundsson.com.invoice.core.Service;
+import gudmundsson.com.invoice.core.ItemService;
 import gudmundsson.com.invoice.util.exception.RepositoryException;
 
 @Mapper
@@ -19,7 +19,7 @@ public interface MQueryMapper {
 
 	public Invoice getInvoiceById(@Param("objectId") String objectId) throws RepositoryException;
 
-	public Service getServiceById(@Param("objectId") String objectId) throws RepositoryException;
+	public ItemService getServiceById(@Param("objectId") String objectId) throws RepositoryException;
 
 	public InvoiceService getInvSerById(@Param("objectId") String objectId) throws RepositoryException;
 
@@ -33,7 +33,7 @@ public interface MQueryMapper {
 			@Param("recordTotalAmount") Double recordTotalAmount, @Param("recordClientId") String recordClientId,
 			@Param("limit") Integer limit, @Param("offset") Integer offset) throws RepositoryException;
 
-	public List<Service> getAllServices(@Param("recordName") String recordName,
+	public List<ItemService> getAllServices(@Param("recordName") String recordName,
 			@Param("recordAmount") Integer recordAmount, @Param("recordClientId") String recordClientId,
 			@Param("limit") Integer limit, @Param("offset") Integer offset) throws RepositoryException;
 
@@ -78,6 +78,6 @@ public interface MQueryMapper {
 			throws RepositoryException;
 	
 	// Este sera el query que filtra todo service a partir del clientId		
-		public List<Service> getServiceByClientId(@Param("recordClientId") String recordClientId) throws RepositoryException;
+		public List<ItemService> getServiceByClientId(@Param("recordClientId") String recordClientId) throws RepositoryException;
 				
 }

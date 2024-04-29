@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gudmundsson.com.invoice.core.Invoice;
-import gudmundsson.com.invoice.core.Service;
+import gudmundsson.com.invoice.core.ItemService;
 
 public class Data {
 
 	private List<Invoice> invoices;
 
-	private List<Service> services;
+	private List<ItemService> itemServices;
 
 	public Data() {
 		this.invoices = new ArrayList<>();
-		this.services = new ArrayList<>();
+		this.itemServices = new ArrayList<>();
 	}
 
 	public List<Invoice> getInvoices() {
@@ -25,12 +25,12 @@ public class Data {
 		this.invoices = invoices;
 	}
 
-	public List<Service> getServices() {
-		return services;
+	public List<ItemService> getServices() {
+		return itemServices;
 	}
 
-	public void setServices(List<Service> services) {
-		this.services = services;
+	public void setServices(List<ItemService> itemServices) {
+		this.itemServices = itemServices;
 	}
 
 }

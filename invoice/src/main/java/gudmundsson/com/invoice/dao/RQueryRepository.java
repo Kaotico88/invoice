@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import gudmundsson.com.invoice.core.Client;
 import gudmundsson.com.invoice.core.Invoice;
 import gudmundsson.com.invoice.core.InvoiceService;
-import gudmundsson.com.invoice.core.Service;
+import gudmundsson.com.invoice.core.ItemService;
 import gudmundsson.com.invoice.util.exception.RepositoryException;
 
 @Repository
@@ -29,7 +29,7 @@ public class RQueryRepository {
 		return mQueryMapper.getInvoiceById(id.orElse(null));
 	}
 
-	public Service getServiceById(Optional<String> id) throws RepositoryException {
+	public ItemService getServiceById(Optional<String> id) throws RepositoryException {
 		return mQueryMapper.getServiceById(id.orElse(null));
 	}
 
@@ -51,7 +51,7 @@ public class RQueryRepository {
 				recordClientId.orElse(null), limit, offset);
 	}
 
-	public List<Service> getAllServices(Optional<String> recordName, Optional<Integer> recordAmount,
+	public List<ItemService> getAllServices(Optional<String> recordName, Optional<Integer> recordAmount,
 			Optional<String> recordClientId, Integer limit, Integer offset) throws RepositoryException {
 		return mQueryMapper.getAllServices(recordName.orElse(null), recordAmount.orElse(null),
 				recordClientId.orElse(null), limit, offset);
@@ -109,7 +109,7 @@ public class RQueryRepository {
 				billingPeriod.orElse(null), invoiceId.orElse(null));
 	}
 	
-	public List<Service> getServiceByClientId(Optional<String> clientId) throws RepositoryException {
+	public List<ItemService> getServiceByClientId(Optional<String> clientId) throws RepositoryException {
 		return mQueryMapper.getServiceByClientId(clientId.orElse(null));
 	}
 }

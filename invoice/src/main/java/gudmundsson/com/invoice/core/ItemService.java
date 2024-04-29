@@ -1,6 +1,6 @@
 package gudmundsson.com.invoice.core;
 
-public class Service {
+public class ItemService {
 
 	private String serviceId;
 

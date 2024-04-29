@@ -22,11 +22,11 @@
         <result column="inv_clie_client_id" property="client.clientId" javaType="string"/>
     </resultMap>
 
-    <resultMap id="ServiceResultMap" type="gudmundsson.com.invoice.core.Service">
+    <resultMap id="ItemServiceResultMap" type="gudmundsson.com.invoice.core.ItemService">
         <id     column="serv_service_id" 	 property="serviceId" 		javaType="string"/>
         <result column="serv_service_name" 	 property="serviceName"   	javaType="string"/>
-        <result column="serv_service_amount" property="serviceAmount"    javaType="integer"/>
-        <result column="serv_clie_client_id" property="client.clientId" 	javaType="string"/>
+        <result column="serv_service_amount" property="serviceAmount"   javaType="integer"/>
+        <result column="serv_clie_client_id" property="client.clientId" javaType="string"/>
     </resultMap>
 
     <resultMap id="InvoiceServiceResultMap" type="gudmundsson.com.invoice.core.InvoiceService">
@@ -252,13 +252,13 @@
     <!-- Este query obtiene un service a partir del clientId -->
     
      <!-- Service By Id-->
-    <select id="getServiceByClientId" resultMap="ServiceResultMap">
+    <select id="getServiceByClientId" resultMap="ItemServiceResultMap">
         <![CDATA[
             SELECT s.serv_service_id, 
             	   s.serv_service_name, 
             	   s.serv_service_amount, 
             	   s.serv_clie_client_id
-              FROM service s
+              FROM item_service s
               INNER JOIN aebytes.client c ON s.serv_clie_client_id = c.clie_client_id
         ]]>
         <where>
@@ -352,7 +352,7 @@
     </sql>
     
     <!-- Service All-->
-    <select id="getAllServices" resultMap="ServiceResultMap">
+    <select id="getAllServices" resultMap="ItemServiceResultMap">
         <![CDATA[
             SELECT *
               FROM (
@@ -370,7 +370,7 @@
 	<sql id="sqlGetAllServices">
         <![CDATA[
             SELECT *
-              FROM service
+              FROM item_service
         ]]>
         <where>
 			<if test="recordName != null">

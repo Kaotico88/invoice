@@ -6,7 +6,7 @@ public class InvoiceService {
 
 	private Invoice invoice;
 
-	private Service service;
+	private ItemService service;
 
 	public String getInvservId() {
 		return invservId;
@@ -24,11 +24,11 @@ public class InvoiceService {
 		this.invoice = invoice;
 	}
 
-	public Service getService() {
+	public ItemService getService() {
 		return service;
 	}
 
-	public void setService(Service service) {
+	public void setService(ItemService service) {
 		this.service = service;
 	}
 
