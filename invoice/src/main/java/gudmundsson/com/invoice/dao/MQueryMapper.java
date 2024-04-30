@@ -78,6 +78,8 @@ public interface MQueryMapper {
 			throws RepositoryException;
 	
 	// Este sera el query que filtra todo service a partir del clientId		
-		public List<ItemService> getServiceByClientId(@Param("recordClientId") String recordClientId) throws RepositoryException;
+	public List<ItemService> getServiceByClientId(@Param("recordClientId") String recordClientId) throws RepositoryException;
+	
+	
 				
 }

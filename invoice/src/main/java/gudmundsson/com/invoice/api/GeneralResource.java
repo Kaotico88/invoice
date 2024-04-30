@@ -26,9 +26,9 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/v1/tigo/BO/invoices")
-public class GeneralResourceMobile {
+public class GeneralResource {
 
-	private static final Logger logger = LoggerFactory.getLogger(GeneralResourceMobile.class);
+	private static final Logger logger = LoggerFactory.getLogger(GeneralResource.class);
 
 	@Autowired
 	private AEutil util;
@@ -40,7 +40,7 @@ public class GeneralResourceMobile {
 
 	private HashMap<String, String> idTypeMap;
 
-	public GeneralResourceMobile() {
+	public GeneralResource() {
 		customerTypeMap = new HashMap<>();
 		customerTypeMap.put("MOBILE", "MOBILE");
 		customerTypeMap.put("HOME", "HOME");

@@ -3,10 +3,7 @@ package gudmundsson.com.invoice.service;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ServiceService {
+public class DiscountService {
 
-//	@Autowired
-//	private RQueryRepository rQueryRepository;
-	
 	
 }

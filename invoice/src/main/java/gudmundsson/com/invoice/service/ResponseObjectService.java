@@ -50,7 +50,7 @@ public class ResponseObjectService {
 		}
 
 		List<Invoice> invoices = responseObjectDto.getData().getInvoices();
-		List<ItemService> itemServices = responseObjectDto.getData().getServices();
+//		List<ItemService> itemServices = responseObjectDto.getData().getServices();
 		
 		for (Invoice invoice : invoices) {
 			Client client = rQueryRepository.getClientById(clientId);
