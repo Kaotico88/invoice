@@ -30,10 +30,12 @@ public class ResponseInvoiceDiscountService {
 		
 		double discountYears = getDiscoutYears(client, invoice);
 		
-		double discountServices = getDiscoutServices(itemServices.size());
+		double discountServices = getDiscoutServices(itemServices, client);
+		
+		double totalNeto = discountYears + discountServices;
 		
 		ResponseInvoiceDto invoiceDto = new ResponseInvoiceDto(
-										invoice, client, itemServices, discountYears, discountYears, discountYears);
+										invoice, client, itemServices, discountYears, discountServices, totalNeto);
 		
 		return invoiceDto;
 	}
@@ -54,7 +56,7 @@ public class ResponseInvoiceDiscountService {
         activationYear = activationYear + (activatioDaysOfYear / 366);       
         double diffYear = currentYear - activationYear;
         System.out.println("Los años despues de su activacion del cliente son:  " + diffYear);
-        if(diffYear > 5) {
+        if(diffYear >= 5) {
         	double amountInvoice = invoice.getTotalAmount();
         	double discount = (5.0/100.0) * amountInvoice;
         	totalAmount = amountInvoice - discount;
@@ -69,27 +71,30 @@ public class ResponseInvoiceDiscountService {
 		return totalAmount;
 	}
 	
-	private double calculateItemServiceAmount(List<ItemService> items) {
+	private double calculateTotalItemServiceAmount(List<ItemService> itemServices) {
 		
 		double totalItemServiceAmount = 0;
-		
-		for(ItemService itemService : items) {
+		for(ItemService itemService : itemServices) {
 			totalItemServiceAmount += itemService.getServiceAmount();
 		}
 		
 		return totalItemServiceAmount;
 	}
 	
-	private double getDiscoutServices(List<ItemService> items) {
+	private double getDiscoutServices(List<ItemService> itemServices, Client client) {
 		
-		double totalAmount;
-		double totalDiscount = 0;
+		double totalItemServiceAmount = calculateTotalItemServiceAmount(itemServices);
+		double totalAmont = 0;
 		
-		if(size > 2) {
-			totalAmount = calculateItemServiceAmount(itemsServices) 
+		if(itemServices.size() >= 2) {
+			double discount = (2.0 /100.0) * totalItemServiceAmount;
+			totalAmont = totalItemServiceAmount - discount;
+			double totalDiscount = 2;
+			client.setTotalDiscount(totalDiscount);
+		}else {
+			client.setTotalDiscount(0.0);
 		}
-		
-		return 0;
+		return totalAmont;
 	}
 	
 }
