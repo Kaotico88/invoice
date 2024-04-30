@@ -33,9 +33,13 @@ public class ResponseInvoiceDiscountService {
 		double discountServices = getDiscoutServices(itemServices, client);
 		
 		double totalNeto = discountYears + discountServices;
+		System.out.println("********Dentro el metodo GetinvoicesDetails************");
+		System.out.println("El descuento por años es:  " + discountYears);
+		System.out.println("El descuento por servicios es:  " + discountServices);
+		System.out.println("El total neto es:  " + totalNeto);
 		
 		ResponseInvoiceDto invoiceDto = new ResponseInvoiceDto(
-										invoice, client, itemServices, discountYears, discountServices, totalNeto);
+										invoice, itemServices, discountYears, discountServices, totalNeto);
 		
 		return invoiceDto;
 	}
@@ -55,13 +59,17 @@ public class ResponseInvoiceDiscountService {
         int activatioDaysOfYear = Math.max(cale.get(Calendar.DAY_OF_YEAR), 365);
         activationYear = activationYear + (activatioDaysOfYear / 366);       
         double diffYear = currentYear - activationYear;
+        System.out.println("********Dentro el metodo Discont x Años************");
         System.out.println("Los años despues de su activacion del cliente son:  " + diffYear);
         if(diffYear >= 5) {
         	double amountInvoice = invoice.getTotalAmount();
+        	System.out.println("Obteniedo el monto de invoice antes del descuento: " + amountInvoice);
         	double discount = (5.0/100.0) * amountInvoice;
         	totalAmount = amountInvoice - discount;
         	invoice.setTotalAmount(totalAmount);
+        	System.out.println("Obteniedo el monto de invoice despues del descuento: " + amountInvoice);
         	totalDiscount += 5;
+        	System.out.println("Obteniedo el monto de invoice despues del descuento: " + totalDiscount);
         	client.setTotalDiscount(totalDiscount);
         }else {
         	totalAmount = invoice.getTotalAmount();

@@ -10,7 +10,7 @@ public class ResponseInvoiceDto {
 
 	private Invoice invoice;
 	
-	private Client client;
+//	private Client client;
 	
 	private List<ItemService> itemServices;
 	
@@ -24,10 +24,10 @@ public class ResponseInvoiceDto {
 	public ResponseInvoiceDto() {
 	}
 
-	public ResponseInvoiceDto(Invoice invoice, Client client, List<ItemService> itemServices, double discountYears,
+	public ResponseInvoiceDto(Invoice invoice, List<ItemService> itemServices, double discountYears,
 			double discountNumberServices, double total) {
 		this.invoice = invoice;
-		this.client = client;
+//		this.client = client;
 		this.itemServices = itemServices;
 		this.discountYears = discountYears;
 		this.discountNumberServices = discountNumberServices;
@@ -45,14 +45,14 @@ public class ResponseInvoiceDto {
 	}
 
 
-	public Client getClient() {
-		return client;
-	}
-
-
-	public void setClient(Client client) {
-		this.client = client;
-	}
+//	public Client getClient() {
+//		return client;
+//	}
+//
+//
+//	public void setClient(Client client) {
+//		this.client = client;
+//	}
 
 
 	public List<ItemService> getItemServices() {
