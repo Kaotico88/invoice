@@ -41,16 +41,15 @@ public class ResponseObjectService {
 			responseObjectDto.getData()
 					.setInvoices(rQueryRepository.getInvoicesQueryA1(idType, clientId, billingPeriod, invoiceId));
 			responseObjectDto.getData()
-					.setServices(rQueryRepository.getServiceByClientId(clientId));
+					.setServices(rQueryRepository.getServicesByClientId(clientId));
 		} else {
 			responseObjectDto.getData()
 					.setInvoices(rQueryRepository.getInvoicesQueryA2(idType, clientId, billingPeriod));
 			responseObjectDto.getData()
-			.setServices(rQueryRepository.getServiceByClientId(clientId));
+			.setServices(rQueryRepository.getServicesByClientId(clientId));
 		}
 
 		List<Invoice> invoices = responseObjectDto.getData().getInvoices();
-//		List<ItemService> itemServices = responseObjectDto.getData().getServices();
 		
 		for (Invoice invoice : invoices) {
 			Client client = rQueryRepository.getClientById(clientId);

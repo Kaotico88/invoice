@@ -20,11 +20,11 @@ public class RQueryRepository {
 
 	@Autowired
 	private MQueryMapper mQueryMapper;
-
+//***
 	public Client getClientById(Optional<String> id) throws RepositoryException {
 		return mQueryMapper.getClientById(id.orElse(null));
 	}
-
+//***
 	public Invoice getInvoiceById(Optional<String> id) throws RepositoryException {
 		return mQueryMapper.getInvoiceById(id.orElse(null));
 	}
@@ -68,48 +68,48 @@ public class RQueryRepository {
 			throws RepositoryException {
 		return mQueryMapper.getClientQuery(customerType.orElse(null), idtype.orElse(null), clientId.orElse(null));
 	}
-
+//***
 	public List<Invoice> getInvoicesQueryA1(Optional<String> idType,
 			Optional<String> clientId, Optional<String> billingPeriod, Optional<String> invoiceId)
 			throws RepositoryException {
 		return mQueryMapper.getInvoicesQueryA1(idType.orElse(null), clientId.orElse(null), 
 				billingPeriod.orElse(null), invoiceId.orElse(null));
 	}
-	
+//***
 	public List<Invoice> getInvoicesQueryA2(Optional<String> idType,
 			Optional<String> clientId, Optional<String> billingPeriod)
 			throws RepositoryException {
 		return mQueryMapper.getInvoicesQueryA2(idType.orElse(null), clientId.orElse(null), 
 				billingPeriod.orElse(null));
 	}
-	
+//***	
 	public Invoice getInvoiceByIdB(Optional<String> invoiceId)
 			throws RepositoryException {
 		return mQueryMapper.getInvoiceByIdB(invoiceId.orElse(null));
 	}
-	
+//***
 	public List<Client> getClientByCustomerTypeIdTypeMOBILE(Optional<String> idType) 
 			throws RepositoryException {
 		return mQueryMapper.getClientByCustomerTypeIdTypeMOBILE(idType.orElse(null));
 	}
-	
+//***
 	public List<Client> getClientByHOMEIdType(Optional<String> idType) 
 			throws RepositoryException {
 		return mQueryMapper.getClientByHOMEIdType(idType.orElse(null));
 	}
-	
+//***
 	public List<Invoice> getInvoicesByClient(Optional<String> clientId, Optional<String> billingPeriod)
 			throws RepositoryException {
 		return mQueryMapper.getInvoicesByClient(clientId.orElse(null), billingPeriod.orElse(null));
 	}
-	
+//***	
 	public Invoice getInvByHOMEIdTypeBillingInvoiceId(Optional<String> idType,
 			Optional<String> billingPeriod, Optional<String> invoiceId )throws RepositoryException {
 		return mQueryMapper.getInvByHOMEIdTypeBillingInvoiceId(idType.orElse(null),
 				billingPeriod.orElse(null), invoiceId.orElse(null));
 	}
-	
-	public List<ItemService> getServiceByClientId(Optional<String> clientId) throws RepositoryException {
-		return mQueryMapper.getServiceByClientId(clientId.orElse(null));
+//***
+	public List<ItemService> getServicesByClientId(Optional<String> clientId) throws RepositoryException {
+		return mQueryMapper.getServicesByClientId(clientId.orElse(null));
 	}
 }

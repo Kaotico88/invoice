@@ -47,38 +47,38 @@ public interface MQueryMapper {
 			@Param("recordIdType") String recordIdType, @Param("recordClientId") String recordClientId)
 			throws RepositoryException;
 
-// esto es lo que se modifica para traer todos los parametros requeridos	
+//***	
 	public List<Invoice> getInvoicesQueryA1(@Param("recordIdType") String recordIdType,
 			@Param("recordClientId") String recordClientId, @Param("recordBillingPeriod") String recordBillingPeriod,
 			@Param("recordInvoiceId") String recordInvoiceId) throws RepositoryException;
 
-// Este es el query que no require del InvoiceId	
+//***	
 	public List<Invoice> getInvoicesQueryA2(@Param("recordIdType") String recordIdType,
 			@Param("recordClientId") String recordClientId, @Param("recordBillingPeriod") String recordBillingPeriod)
 			throws RepositoryException;
 
-// Este es el query que filtra por customerType e invoiceId	
+//***
 	public Invoice getInvoiceByIdB(@Param("recordInvoiceId") String recordInvoiceId)
 			throws RepositoryException;
 
-// Este es el query que filtra por customerType e idType obtendra un client
+//***
 	public List<Client> getClientByCustomerTypeIdTypeMOBILE(@Param("recordIdType") String recordIdType)
 			throws RepositoryException;
-
+//***
 	public List<Client> getClientByHOMEIdType(@Param("recordIdType") String recordIdType)
 			throws RepositoryException;
 
-// Este sera el query que filtra por cliente y billing period y me devuleve una lista de invoices
+//***
 	public List<Invoice> getInvoicesByClient(@Param("recordClientId") String recordClientId,
 			@Param("recordBillingPeriod") String recordBillingPeriod) throws RepositoryException;
 
-// Este sera el query que filtra customerType, idType, billingPeriod & invoiceId		
+//***		
 	public Invoice getInvByHOMEIdTypeBillingInvoiceId(@Param("recordIdType") String recordIdType,
 			@Param("recordBillingPeriod") String recordBillingPeriod, @Param("recordInvoiceId") String recordInvoiceId)
 			throws RepositoryException;
 	
-	// Este sera el query que filtra todo service a partir del clientId		
-	public List<ItemService> getServiceByClientId(@Param("recordClientId") String recordClientId) throws RepositoryException;
+//***	
+	public List<ItemService> getServicesByClientId(@Param("recordClientId") String recordClientId) throws RepositoryException;
 	
 	
 				

@@ -26,18 +26,14 @@ public class ResponseInvoiceDiscountService {
 
 		Client client = rQueryRepository.getClientById(Optional.of(invoice.getClient().getClientId()));
 
-		List<ItemService> itemServices = rQueryRepository.getServiceByClientId(Optional.of(client.getClientId()));
+		List<ItemService> itemServices = rQueryRepository.getServicesByClientId(Optional.of(client.getClientId()));
 
 		double discountYears = getDiscoutYears(client, invoice);
 
 		double discountServices = getDiscoutServices(itemServices, client);
 
 		double totalNeto = discountYears + discountServices;
-		System.out.println("********Dentro el metodo GetinvoicesDetails************");
-		System.out.println("El descuento por años es:  " + discountYears);
-		System.out.println("El descuento por servicios es:  " + discountServices);
-		System.out.println("El total neto es:  " + totalNeto);
-
+	
 		ResponseInvoiceDto invoiceDto = new ResponseInvoiceDto(invoice, itemServices, discountYears, discountServices,
 				totalNeto);
 

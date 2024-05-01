@@ -2,7 +2,7 @@ package gudmundsson.com.invoice.dto;
 
 import java.util.List;
 
-import gudmundsson.com.invoice.core.Client;
+//import gudmundsson.com.invoice.core.Client;
 import gudmundsson.com.invoice.core.Invoice;
 import gudmundsson.com.invoice.core.ItemService;
 

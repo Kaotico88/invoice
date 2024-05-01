@@ -37,7 +37,7 @@
 
     <!-- Queries -->
     
-    <!-- Cliente By Id-->
+    <!-- *** Este query obtine un client a partir de su campo clientId -->
     <select id="getClientById" resultMap="ClientResultMap">
         <![CDATA[
             SELECT *
@@ -70,7 +70,7 @@
                AND clie_id_type = #{recordIdType}
         </where>
     </select>
-    <!-- Invoice  By clientId-->
+    <!-- *** Este query obtiene invoces a partir del campo clientId & billingPeriod-->
     <select id="getInvoicesByClient" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT *
@@ -81,7 +81,8 @@
                AND inv_billing_period = #{recordBillingPeriod}
         </where>
     </select>
-     <!-- Invoice By Id-->
+    
+     <!-- *** Este obtiene el invoice a partir de su campo invoiceId-->
     <select id="getInvoiceById" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT *
@@ -92,7 +93,7 @@
         </where>
     </select>
     
-     <!-- Este query llama a todos los parametros requeridos en la solicitud incluido el 'invoiceId'-->
+     <!-- *** Este query obtienetodos los parametros requeridos en la solicitud incluido el 'invoiceId' -->
     <select id="getInvoicesQueryA1" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT c.clie_customer_type, 
@@ -124,7 +125,7 @@
         </where>
     </select>
     
-    <!-- Este query llama a todos los parametros requeridos en la solicitud exclutyendo a 'invoiceId' -->
+    <!-- *** Este query llama a todos los parametros requeridos en la solicitud, exclutyendo a 'invoiceId' -->
     <select id="getInvoicesQueryA2" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT c.clie_customer_type, 
@@ -152,7 +153,7 @@
         </where>
     </select>
    
-    <!-- Este es el query que requiere customerType = MOBILE e invoiceId ademas de los parametros requeridos por la solicitud -->
+    <!-- *** Este es el query que requiere customerType = 'MOBILE' e invoiceId ademas de los parametros requeridos por la solicitud -->
     <select id="getInvoiceByIdB" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT c.clie_customer_type,  
@@ -193,7 +194,7 @@
         </where>
     </select>
     
-    <!-- Este es muy parecido solo que es de client nada mas con los parametros de customerType y idType Para MOBILE-->
+    <!-- *** Este es muy parecido solo que es de client nada mas con los parametros de customerType y idType Para MOBILE-->
     <select id="getClientByCustomerTypeIdTypeMOBILE" resultMap="ClientResultMap">
         <![CDATA[
             SELECT *
@@ -208,7 +209,7 @@
         </where>
     </select>
     
-    <!-- Este qury devuelve un cliente a partir del customerType = 'HOME/CONVERGENT' & el parametro idType-->
+    <!-- *** Este qury obtiene un cliente a partir del customerType = 'HOME/CONVERGENT' & el parametro idType-->
     <select id="getClientByHOMEIdType" resultMap="ClientResultMap">
         <![CDATA[
             SELECT *
@@ -223,7 +224,7 @@
         </where>
     </select>
     
-    <!-- Este query obtiene un invoice segun customerType = HOME, idType, billingPeriod & invoiceId-->
+    <!--*** Este query obtiene un invoice segun customerType = HOME, idType, billingPeriod & invoiceId-->
     <select id="getInvByHOMEIdTypeBillingInvoiceId" resultMap="InvoiceResultMap">
         <![CDATA[
             SELECT c.clie_customer_type, 
@@ -249,10 +250,8 @@
         </where>
     </select>
     
-    <!-- Este query obtiene un service a partir del clientId -->
-    
-     <!-- Service By Id-->
-    <select id="getServiceByClientId" resultMap="ItemServiceResultMap">
+     <!-- *** Este query obtiene todos los campos de itemService a partir del clientId -->
+    <select id="getServicesByClientId" resultMap="ItemServiceResultMap">
         <![CDATA[
             SELECT s.serv_service_id, 
             	   s.serv_service_name, 
