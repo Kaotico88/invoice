@@ -25,12 +25,14 @@ public class Data {
 		this.invoices = invoices;
 	}
 
-	public List<ItemService> getServices() {
+	public List<ItemService> getItemServices() {
 		return itemServices;
 	}
 
-	public void setServices(List<ItemService> itemServices) {
+	public void setItemServices(List<ItemService> itemServices) {
 		this.itemServices = itemServices;
 	}
+
+	
 
 }

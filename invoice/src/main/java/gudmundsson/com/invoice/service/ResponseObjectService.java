@@ -8,10 +8,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-//import gudmundsson.com.invoice.core.Client;
-//import gudmundsson.com.invoice.core.Invoice;
-//import gudmundsson.com.invoice.core.Service;
 import gudmundsson.com.invoice.core.*;
 import gudmundsson.com.invoice.dao.RQueryRepository;
 import gudmundsson.com.invoice.dto.ResponseObjectDto;
@@ -41,12 +37,12 @@ public class ResponseObjectService {
 			responseObjectDto.getData()
 					.setInvoices(rQueryRepository.getInvoicesQueryA1(idType, clientId, billingPeriod, invoiceId));
 			responseObjectDto.getData()
-					.setServices(rQueryRepository.getServicesByClientId(clientId));
+					.setItemServices(rQueryRepository.getServicesByClientId(clientId));
 		} else {
 			responseObjectDto.getData()
 					.setInvoices(rQueryRepository.getInvoicesQueryA2(idType, clientId, billingPeriod));
 			responseObjectDto.getData()
-			.setServices(rQueryRepository.getServicesByClientId(clientId));
+			.setItemServices(rQueryRepository.getServicesByClientId(clientId));
 		}
 
 		List<Invoice> invoices = responseObjectDto.getData().getInvoices();
