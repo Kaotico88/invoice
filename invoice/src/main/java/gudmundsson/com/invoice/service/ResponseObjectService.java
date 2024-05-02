@@ -88,19 +88,19 @@ public class ResponseObjectService {
 	public ResponseObjectDto getQueryRecordsC(Optional<String> idType, Optional<String> billingPeriod,
 			String sessionLogId) throws RepositoryException {
 
-		List<Client> clients = clientService.getByCustomerIdTypeMOBILE(idType);
+		List<Client> clients = clientService.getClientsByCustomerIdTypeMOBILE(idType);
 		List<String> clientIds = clients.stream().map(Client::getClientId).collect(Collectors.toList());
 
 		List<Invoice> invoices = new ArrayList<>();
 		for (String clientId : clientIds) {
-			List<Invoice> clientInvoices = rQueryRepository.getInvoicesByClient(Optional.of(clientId), billingPeriod);
-			for (Invoice clientInvoice : clientInvoices) {
-				Invoice invoice = invoiceService.getInvoiceByIdImprove(Optional.of(clientInvoice.getInvoiceId()));
+			List<Invoice> invoicesClient = rQueryRepository.getInvoicesByClient(Optional.of(clientId), billingPeriod);
+			for (Invoice invoiceClient : invoicesClient) {
+				Invoice invoice = invoiceService.getInvoiceByIdImprove(Optional.of(invoiceClient.getInvoiceId()));
 				String id = invoice.getClient().getClientId();
 				Client client = rQueryRepository.getClientById(Optional.of(id));
-				clientInvoice.setClient(client);
+				invoiceClient.setClient(client);
 			}
-			invoices.addAll(clientInvoices);
+			invoices.addAll(invoicesClient);
 		}
 
 		ResponseObjectDto responseObjectDto = new ResponseObjectDto();
@@ -120,20 +120,20 @@ public class ResponseObjectService {
 			invoice = rQueryRepository.getInvByHOMEIdTypeBillingInvoiceId(idType, billingPeriod, invoiceId);
 			invoice = invoiceService.getInvoiceByIdImprove(invoiceId);
 		} else {
-			List<Client> clients = clientService.getClientByHOMEIdType(idType);
+			List<Client> clients = clientService.getClientsByHOMEIdType(idType);
 			List<String> clientIds = clients.stream().map(Client::getClientId).collect(Collectors.toList());
 
 			List<Invoice> allInvoices = new ArrayList<>();
 			for (String clientId : clientIds) {
-				List<Invoice> clientInvoices = rQueryRepository.getInvoicesByClient(Optional.of(clientId),
+				List<Invoice> invoicesClient = rQueryRepository.getInvoicesByClient(Optional.of(clientId),
 						billingPeriod);
-				for (Invoice clientInvoice : clientInvoices) {
-					invoice = invoiceService.getInvoiceByIdImprove(Optional.of(clientInvoice.getInvoiceId()));
+				for (Invoice invoiceClient : invoicesClient) {
+					invoice = invoiceService.getInvoiceByIdImprove(Optional.of(invoiceClient.getInvoiceId()));
 					String id = invoice.getClient().getClientId();
 					Client client = rQueryRepository.getClientById(Optional.of(id));
-					clientInvoice.setClient(client);
+					invoiceClient.setClient(client);
 				}
-				allInvoices.addAll(clientInvoices);
+				allInvoices.addAll(invoicesClient);
 			}
 		}
 

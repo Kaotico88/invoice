@@ -47,29 +47,7 @@
                AND clie_client_id = #{objectId}
         </where>
     </select>
-    <!-- Cliente By Id Para el invoice es lo mismo sigues la logica de los dos querys-->
-    <select id="getClientQuery" resultMap="ClientResultMap">
-        <![CDATA[
-            SELECT *
-              FROM client
-        ]]>
-        <where>
-               AND clie_customer_type = #{recordCustomerType}
-               AND clie_id_type = #{recordIdType}
-               AND clie_client_id = #{recordClientId}
-        </where>
-    </select>
-    <!-- Cliente by customerType & idType -->
-    <select id="getClientByCustomerTIdType" resultMap="ClientResultMap">
-        <![CDATA[
-            SELECT *
-              FROM client
-        ]]>
-        <where>
-               AND clie_customer_type = #{recordCustomerType}
-               AND clie_id_type = #{recordIdType}
-        </where>
-    </select>
+        
     <!-- *** Este query obtiene invoces a partir del campo clientId & billingPeriod-->
     <select id="getInvoicesByClient" resultMap="InvoiceResultMap">
         <![CDATA[
@@ -171,31 +149,9 @@
             </if>         
         </where>
     </select>
-    <!-- Este es el query que filtrara por customerType= MOBILE, idType= DOCUMENT,  billingPeriod -->
-     <!-- considerando el mejor d los casos que idType & billingPeriod son obligatorios y especificos -->
-    <select id="getInvByCustomerIdTypeBillingP" resultMap="InvoiceResultMap">
-        <![CDATA[
-            SELECT c.clie_customer_type, 
-            	   c.clie_id_type,            	     
-            	   i.inv_billing_period            	     
-              FROM invoice i
-              INNER JOIN client c ON c.clie_client_id = i.inv_clie_client_id
-        ]]>
-        <where>
-			<if test="recordCustomerType != null">
-               AND c.clie_customer_type = #{recordCustomerType}
-            </if>
-            <if test="recordIdType != null">
-               AND c.clie_id_type = #{recordIdType}
-            </if>
-            <if test="recordBillingPeriod != null">
-               AND i.inv_billing_period = #{recordBillingPeriod}
-            </if>
-        </where>
-    </select>
     
     <!-- *** Este es muy parecido solo que es de client nada mas con los parametros de customerType y idType Para MOBILE-->
-    <select id="getClientByCustomerTypeIdTypeMOBILE" resultMap="ClientResultMap">
+    <select id="getClientsByCustomerTypeIdTypeMOBILE" resultMap="ClientResultMap">
         <![CDATA[
             SELECT *
               FROM client
@@ -209,8 +165,8 @@
         </where>
     </select>
     
-    <!-- *** Este qury obtiene un cliente a partir del customerType = 'HOME/CONVERGENT' & el parametro idType-->
-    <select id="getClientByHOMEIdType" resultMap="ClientResultMap">
+    <!-- *** Este query obtiene un cliente a partir del customerType = 'HOME/CONVERGENT' & el parametro idType-->
+    <select id="getClientsByHOMEIdType" resultMap="ClientResultMap">
         <![CDATA[
             SELECT *
               FROM client
@@ -264,154 +220,5 @@
                AND s.serv_clie_client_id = #{recordClientId}
         </where>
     </select>
-    
-     <!-- Inv_Serv By Id-->
-    <select id="getInvSerById" resultMap="InvoiceServiceResultMap">
-        <![CDATA[
-            SELECT *
-              FROM invoice_service
-        ]]>
-        <where>
-               AND inse_inv_serv_id = #{objectId}
-        </where>
-    </select>
-    
-     <!-- Cliente All-->
-    <select id="getAllClients" resultMap="ClientResultMap">
-        <![CDATA[
-            SELECT *
-              FROM (
-        ]]>
-        <include refid="sqlGetAllClients"/>
-        <![CDATA[
-                   ) AS records
-          ORDER BY clie_client_id
-        ]]>
-        <if test="limit != null">
-             LIMIT ${limit} OFFSET ${offset}
-        </if>
-    </select>
-  
-	<sql id="sqlGetAllClients">
-        <![CDATA[
-            SELECT *
-              FROM client
-        ]]>
-        <where>
-			<if test="recordCustomerType != null">
-               AND clie_customer_type = #{recordCustomerType}
-            </if>
-            <if test="recordIdType != null">
-               AND clie_id_type = #{recordIdType}
-            </if>
-            <if test="recordMsisdn != null">
-               AND clie_msisdn = #{recordMsisdn}
-            </if>
-            <if test="recordActivationDate != null">
-               AND clie_activation_date = #{recordActivationDate}
-            </if>
-            <if test="recordTotalDiscount != null">
-               AND clie_total_discount = #{recordTotalDiscount}
-            </if>
-        </where>
-    </sql>
-    
-    <!-- Invoice All-->
-    <select id="getAllInvoices" resultMap="InvoiceResultMap">
-        <![CDATA[
-            SELECT *
-              FROM (
-        ]]>
-        <include refid="sqlGetAllInvoices"/>
-        <![CDATA[
-                   ) AS records
-          ORDER BY inv_invoice_id
-        ]]>
-        <if test="limit != null">
-             LIMIT ${limit} OFFSET ${offset}
-        </if>
-    </select>
-  
-	<sql id="sqlGetAllInvoices">
-        <![CDATA[
-            SELECT *
-              FROM invoice
-        ]]>
-        <where>
-			<if test="recordBillingPeriod != null">
-               AND inv_billing_period = #{recordBillingPeriod}
-            </if>
-            <if test="recordTotalAmount != null">
-               AND inv_total_amount = #{recordTotalAmount}
-            </if>
-            <if test="recordClientId != null">
-               AND inv_clie_client_id = #{recordClientId}
-            </if>
-        </where>
-    </sql>
-    
-    <!-- Service All-->
-    <select id="getAllServices" resultMap="ItemServiceResultMap">
-        <![CDATA[
-            SELECT *
-              FROM (
-        ]]>
-        <include refid="sqlGetAllServices"/>
-        <![CDATA[
-                   ) AS records
-          ORDER BY serv_service_id
-        ]]>
-        <if test="limit != null">
-             LIMIT ${limit} OFFSET ${offset}
-        </if>
-    </select>
-  
-	<sql id="sqlGetAllServices">
-        <![CDATA[
-            SELECT *
-              FROM item_service
-        ]]>
-        <where>
-			<if test="recordName != null">
-               AND serv_service_name = #{recordName}
-            </if>
-            <if test="recordAmount != null">
-               AND serv_service_amount = #{recordAmount}
-            </if>
-            <if test="recordClientId != null">
-               AND serv_clie_client_id = #{recordClientId}
-            </if>
-        </where>
-    </sql>
-    
-    <select id="getAllInvoServ" resultMap="InvoiceServiceResultMap">
-        <![CDATA[
-            SELECT *
-              FROM (
-        ]]>
-        <include refid="sqlGetAllInvoServ"/>
-        <![CDATA[
-                   ) AS records
-          ORDER BY inse_inv_serv_id
-        ]]>
-        <if test="limit != null">
-             LIMIT ${limit} OFFSET ${offset}
-        </if>
-    </select>
-  
-	<sql id="sqlGetAllInvoServ">
-        <![CDATA[
-            SELECT *
-              FROM invoice_service
-        ]]>
-        <where>
-			<if test="recordInvoiceId != null">
-               AND inse_invo_invoice_id = #{recordInvoiceId}
-            </if>
-            <if test="recordServiceId != null">
-               AND inse_serv_service_id = #{recordServiceId}
-            </if>          
-        </where>
-    </sql>
-    
+           
 </mapper> 

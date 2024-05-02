@@ -16,15 +16,15 @@ public class ClientService {
 	@Autowired
 	private RQueryRepository rQueryRepository;
 	
-	public List<Client> getByCustomerIdTypeMOBILE(Optional<String> idType) {
+	public List<Client> getClientsByCustomerIdTypeMOBILE(Optional<String> idType) {
 		List<Client> clients = new ArrayList<>();
-		clients = rQueryRepository.getClientByCustomerTypeIdTypeMOBILE(idType);
+		clients = rQueryRepository.getClientsByCustomerTypeIdTypeMOBILE(idType);
 		return clients;	
 	}
 	
-	public List<Client> getClientByHOMEIdType(Optional<String> idType) {
+	public List<Client> getClientsByHOMEIdType(Optional<String> idType) {
 		List<Client> clients = new ArrayList<>();
-		clients = rQueryRepository.getClientByHOMEIdType(idType);
+		clients = rQueryRepository.getClientsByHOMEIdType(idType);
 		return clients;	
 	}
 }
