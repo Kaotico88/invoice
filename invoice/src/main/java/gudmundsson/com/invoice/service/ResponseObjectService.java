@@ -36,22 +36,27 @@ public class ResponseObjectService {
 		if (invoiceId.isPresent()) {
 			responseObjectDto.getData()
 					.setInvoices(rQueryRepository.getInvoicesQueryA1(idType, clientId, billingPeriod, invoiceId));
-			responseObjectDto.getData()
-					.setItemServices(rQueryRepository.getServicesByClientId(clientId));
+			responseObjectDto.getData().setItemServices(rQueryRepository.getServicesByClientId(clientId));
 		} else {
 			responseObjectDto.getData()
 					.setInvoices(rQueryRepository.getInvoicesQueryA2(idType, clientId, billingPeriod));
-			responseObjectDto.getData()
-			.setItemServices(rQueryRepository.getServicesByClientId(clientId));
+			responseObjectDto.getData().setItemServices(rQueryRepository.getServicesByClientId(clientId));
 		}
 
 		List<Invoice> invoices = responseObjectDto.getData().getInvoices();
-		
+
 		for (Invoice invoice : invoices) {
 			Client client = rQueryRepository.getClientById(clientId);
 			invoice.setClient(client);
 		}
 		
+		List<ItemService> itemServices = responseObjectDto.getData().getItemServices();
+
+		for (ItemService itemService : itemServices) {
+			Client client = rQueryRepository.getClientById(clientId);
+			itemService.setClient(client);
+		}
+
 		return responseObjectDto;
 	}
 

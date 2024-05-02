@@ -220,5 +220,15 @@
                AND s.serv_clie_client_id = #{recordClientId}
         </where>
     </select>
+    
+    <select id="getServicesById" resultMap="ItemServiceResultMap">
+        <![CDATA[
+            SELECT *
+              FROM item_service       
+        ]]>
+        <where>
+               AND s.serv_service_id = #{objectId}
+        </where>
+    </select>
            
 </mapper> 

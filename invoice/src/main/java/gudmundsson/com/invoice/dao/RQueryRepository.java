@@ -26,6 +26,10 @@ public class RQueryRepository {
 	public Invoice getInvoiceById(Optional<String> id) throws RepositoryException {
 		return mQueryMapper.getInvoiceById(id.orElse(null));
 	}
+	
+	public ItemService getItemServiceById(Optional<String> id) throws RepositoryException {
+		return mQueryMapper.getItemServiceById(id.orElse(null));
+	}
 //***
 	public List<Invoice> getInvoicesQueryA1(Optional<String> idType,
 			Optional<String> clientId, Optional<String> billingPeriod, Optional<String> invoiceId)
