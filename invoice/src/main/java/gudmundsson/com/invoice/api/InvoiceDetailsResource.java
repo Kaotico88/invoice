@@ -1,6 +1,6 @@
 package gudmundsson.com.invoice.api;
 
-//import static java.util.Optional.ofNullable;
+import static java.util.Optional.ofNullable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +59,7 @@ public class InvoiceDetailsResource {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "El parametro 'invoiceId' no es valido");
 		}
 
-		responseObj = response.getInvoiceDetails(invoiceId);
+		responseObj = response.getInvoiceDetails(ofNullable(invoiceId));
 
 		if (responseObj == null ) {
 			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
@@ -69,7 +69,6 @@ public class InvoiceDetailsResource {
 		return new ResponseEntity<ResponseInvoiceDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
 
 	}
-	
 	
 	private synchronized void requestLog(HttpServletRequest request, String sessionLogId) {
 		AElog.infoX(logger,

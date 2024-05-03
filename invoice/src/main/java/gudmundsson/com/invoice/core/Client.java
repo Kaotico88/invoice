@@ -64,4 +64,11 @@ public class Client {
 		this.totalDiscount = totalDiscount;
 	}
 
+	@Override
+	public String toString() {
+		return "Client [clientId=" + clientId + ", customerType=" + customerType + ", idType=" + idType + ", msisdn="
+				+ msisdn + ", activationDate=" + activationDate + ", totalDiscount=" + totalDiscount + "]";
+	}
+
+	
 }

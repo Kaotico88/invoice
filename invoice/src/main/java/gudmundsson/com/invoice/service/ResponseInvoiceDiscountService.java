@@ -23,14 +23,12 @@ public class ResponseInvoiceDiscountService {
 	@Autowired
 	private InvoiceService invoiceService;
 
-	public ResponseInvoiceDto getInvoiceDetails(String invoiceId) {
+	public ResponseInvoiceDto getInvoiceDetails(Optional<String> invoiceId) {
 
-		Invoice invoice = rQueryRepository.getInvoiceById(Optional.of(invoiceId));
+		Invoice invoice = invoiceService.getInvoiceByIdImprove(invoiceId);
 		
-		Invoice invoiceImprove = invoiceService.getInvoiceByIdImprove(Optional.of(invoiceId));
-
 		Client client = rQueryRepository.getClientById(Optional.of(invoice.getClient().getClientId()));
-
+		
 		List<ItemService> itemServices = rQueryRepository.getServicesByClientId(Optional.of(client.getClientId()));
 
 		double discountYears = getDiscoutYears(client, invoice);
