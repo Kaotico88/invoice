@@ -70,7 +70,7 @@ public class ResponseInvoiceDiscountService {
 			
 			invoiceImprove.setClient(client);
 			totalDiscount = invoiceImprove.getClient().getTotalDiscount();
-			totalDiscount += 5;
+			totalDiscount += discount;
 			invoiceImprove.getClient().setTotalDiscount(totalDiscount);
 			
 		} else {
@@ -100,7 +100,7 @@ public class ResponseInvoiceDiscountService {
 			totalAmount = totalItemServiceAmount - discount;
 			
 			totalDiscount = invoice.getClient().getTotalDiscount();
-			totalDiscount += 2;
+			totalDiscount += discount;
 			
 			invoice.getClient().setTotalDiscount(totalDiscount);
 		} else {
