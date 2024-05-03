@@ -24,8 +24,6 @@ public class ResponseInvoiceDiscountService {
 	private InvoiceService invoiceService;
 
 	public ResponseInvoiceDto getInvoiceDetails(String invoiceId) {
-		
-//		double totalDiscount = 0;
 
 		Invoice invoice = rQueryRepository.getInvoiceById(Optional.of(invoiceId));
 		
@@ -62,17 +60,15 @@ public class ResponseInvoiceDiscountService {
 		int activatioDaysOfYear = Math.max(cale.get(Calendar.DAY_OF_YEAR), 365);
 		activationYear = activationYear + (activatioDaysOfYear / 366);
 		double diffYear = currentYear - activationYear;
-		
+						
 		if (diffYear >= 5) {
 			totalAmount = invoiceImprove.getTotalAmount();
 			double discount = (5.0 / 100.0) * totalAmount;
 			totalAmount = totalAmount - discount;
 			
 			invoiceImprove.setClient(client);
-			totalDiscount = invoiceImprove.getClient().getTotalDiscount();
 			totalDiscount += discount;
-			invoiceImprove.getClient().setTotalDiscount(totalDiscount);
-			
+			invoiceImprove.getClient().setTotalDiscount(totalDiscount);				
 		} else {
 			totalAmount = invoiceImprove.getTotalAmount();
 			invoiceImprove.getClient().setTotalDiscount(totalDiscount);
@@ -104,8 +100,8 @@ public class ResponseInvoiceDiscountService {
 			
 			invoice.getClient().setTotalDiscount(totalDiscount);
 		} else {
-			totalAmount = invoice.getTotalAmount();
-			invoice.getClient().setTotalDiscount(totalDiscount);
+			totalAmount = itemServices.get(0).getServiceAmount();					
+//			invoice.getClient().setTotalDiscount(totalDiscount);			
 		}
 		return totalAmount;
 	}
