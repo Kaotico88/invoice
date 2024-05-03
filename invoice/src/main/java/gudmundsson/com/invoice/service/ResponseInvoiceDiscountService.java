@@ -19,10 +19,17 @@ public class ResponseInvoiceDiscountService {
 
 	@Autowired
 	private RQueryRepository rQueryRepository;
+	
+	@Autowired
+	private InvoiceService invoiceService;
 
 	public ResponseInvoiceDto getInvoiceDetails(String invoiceId) {
+		
+//		double totalDiscount = 0;
 
 		Invoice invoice = rQueryRepository.getInvoiceById(Optional.of(invoiceId));
+		
+		Invoice invoiceImprove = invoiceService.getInvoiceByIdImprove(Optional.of(invoiceId));
 
 		Client client = rQueryRepository.getClientById(Optional.of(invoice.getClient().getClientId()));
 
@@ -30,7 +37,7 @@ public class ResponseInvoiceDiscountService {
 
 		double discountYears = getDiscoutYears(client, invoice);
 
-		double discountServices = getDiscoutServices(itemServices, client);
+		double discountServices = getDiscoutServices(itemServices, invoice);
 
 		double totalNeto = discountYears + discountServices;
 	
@@ -40,7 +47,7 @@ public class ResponseInvoiceDiscountService {
 		return invoiceDto;
 	}
 
-	private double getDiscoutYears(Client client, Invoice invoice) {
+	private double getDiscoutYears(Client client, Invoice invoiceImprove) {
 
 		double totalAmount;
 		double totalDiscount = 0;
@@ -55,17 +62,20 @@ public class ResponseInvoiceDiscountService {
 		int activatioDaysOfYear = Math.max(cale.get(Calendar.DAY_OF_YEAR), 365);
 		activationYear = activationYear + (activatioDaysOfYear / 366);
 		double diffYear = currentYear - activationYear;
+		
 		if (diffYear >= 5) {
-			double amountInvoice = invoice.getTotalAmount();
-			double discount = (5.0 / 100.0) * amountInvoice;
-			totalAmount = amountInvoice - discount;
-			invoice.setTotalAmount(totalAmount);
+			totalAmount = invoiceImprove.getTotalAmount();
+			double discount = (5.0 / 100.0) * totalAmount;
+			totalAmount = totalAmount - discount;
+			
+			invoiceImprove.setClient(client);
+			totalDiscount = invoiceImprove.getClient().getTotalDiscount();
 			totalDiscount += 5;
-			client.setTotalDiscount(totalDiscount);
+			invoiceImprove.getClient().setTotalDiscount(totalDiscount);
+			
 		} else {
-			totalAmount = invoice.getTotalAmount();
-			totalDiscount += 0;
-			client.setTotalDiscount(totalDiscount);
+			totalAmount = invoiceImprove.getTotalAmount();
+			invoiceImprove.getClient().setTotalDiscount(totalDiscount);
 		}
 		return totalAmount;
 	}
@@ -79,19 +89,23 @@ public class ResponseInvoiceDiscountService {
 		return totalItemServiceAmount;
 	}
 
-	private double getDiscoutServices(List<ItemService> itemServices, Client client) {
+	private double getDiscoutServices(List<ItemService> itemServices, Invoice invoice) {
 
 		double totalItemServiceAmount = calculateTotalItemServiceAmount(itemServices);
 		double totalAmount = 0;
+		double totalDiscount = 0;
 		
 		if (itemServices.size() >= 2) {
 			double discount = (2.0 / 100.0) * totalItemServiceAmount;
 			totalAmount = totalItemServiceAmount - discount;
-			double totalDiscount = 2;
-			client.setTotalDiscount(totalDiscount);
+			
+			totalDiscount = invoice.getClient().getTotalDiscount();
+			totalDiscount += 2;
+			
+			invoice.getClient().setTotalDiscount(totalDiscount);
 		} else {
-			totalAmount = totalItemServiceAmount;
-			client.setTotalDiscount(0.0);
+			totalAmount = invoice.getTotalAmount();
+			invoice.getClient().setTotalDiscount(totalDiscount);
 		}
 		return totalAmount;
 	}

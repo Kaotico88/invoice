@@ -27,6 +27,7 @@ public class InvoiceService {
 		improveInvo.getClient().setIdType(client.getIdType());
 		improveInvo.getClient().setMsisdn(client.getMsisdn());
 		improveInvo.getClient().setClientId(clientId.orElse(null));
+		improveInvo.getClient().setActivationDate(client.getActivationDate());
 		improveInvo.getClient().setTotalDiscount(client.getTotalDiscount());
 		
 		return improveInvo;

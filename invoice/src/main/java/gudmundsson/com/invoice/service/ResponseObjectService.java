@@ -49,7 +49,7 @@ public class ResponseObjectService {
 			Client client = rQueryRepository.getClientById(clientId);
 			invoice.setClient(client);
 		}
-		
+
 		List<ItemService> itemServices = responseObjectDto.getData().getItemServices();
 
 		for (ItemService itemService : itemServices) {
