@@ -24,6 +24,13 @@ import gudmundsson.com.invoice.util.AEutil;
 import gudmundsson.com.invoice.util.exception.response.custom.CustomRuntimeException;
 import jakarta.servlet.http.HttpServletRequest;
 
+/**
+* Proyecto invoice
+*
+* @author Rene Gudmundsson
+* @since 1.0
+*/
+
 @RestController
 @RequestMapping("/v1/tigo/BO/invoices")
 public class GeneralResource {
