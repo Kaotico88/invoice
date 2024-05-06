@@ -62,7 +62,7 @@ public class InvoiceDetailsResource {
 		responseObj = response.getInvoiceDetails(ofNullable(invoiceId));
 
 		if (responseObj == null ) {
-			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
+			throw new CustomRuntimeException(HttpStatus.NOT_FOUND, 404, "No se encontraron datos para la busqueda");
 		}
 
 		responseHeaders.set("Custom-Message", "HTTP/1.1 200 Ok");

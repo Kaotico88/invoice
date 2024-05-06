@@ -97,7 +97,7 @@ public class GeneralResource {
 				ofNullable(billingPeriod), ofNullable(invoiceId), sessionLogId);
 
 		if (responseObj == null || responseObj.getData() == null || responseObj.getData().getInvoices().isEmpty()) {
-			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
+			throw new CustomRuntimeException(HttpStatus.NOT_FOUND, 404, "No se encontraron datos para la busqueda");
 		}
 
 		responseHeaders.set("Custom-Message", "HTTP/1.1 200 Ok");
@@ -121,7 +121,7 @@ public class GeneralResource {
 		responseObj = responseObjectService.getQueryRecordsB(ofNullable(invoiceId), sessionLogId);
 
 		if (responseObj == null || responseObj.getData() == null || responseObj.getData().getInvoices().isEmpty()) {
-			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
+			throw new CustomRuntimeException(HttpStatus.NOT_FOUND, 404, "No se encontraron datos para la busqueda");
 		}
 
 		responseHeaders.set("Custom-Message", "HTTP/1.1 200 Ok");
@@ -150,7 +150,7 @@ public class GeneralResource {
 				sessionLogId);
 
 		if (responseObj == null || responseObj.getData() == null || responseObj.getData().getInvoices().isEmpty()) {
-			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
+			throw new CustomRuntimeException(HttpStatus.NOT_FOUND, 404, "No se encontraron datos para la busqueda");
 		}
 
 		responseHeaders.set("Custom-Message", "HTTP/1.1 200 Ok");
@@ -180,7 +180,7 @@ public class GeneralResource {
 				ofNullable(invoiceId), sessionLogId);
 
 		if (responseObj == null || responseObj.getData() == null || responseObj.getData().getInvoices().isEmpty()) {
-			throw new CustomRuntimeException(HttpStatus.BAD_REQUEST, 400, "No se encontraron datos para la busqueda");
+			throw new CustomRuntimeException(HttpStatus.NOT_FOUND, 404, "No se encontraron datos para la busqueda");
 		}
 
 		responseHeaders.set("Custom-Message", "HTTP/1.1 200 Ok");
