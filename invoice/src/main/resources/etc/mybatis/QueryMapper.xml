@@ -31,7 +31,7 @@
     </resultMap>
 
     <resultMap id="InvoiceServiceResultMap" type="gudmundsson.com.invoice.core.InvoiceService">
-        <id     column="inse_inv_serv_id" 	  property="invservId"  		  javaType="string"/>
+        <id     column="inse_inv_serv_id" 	  property="invservId"  	   javaType="string"/>
         <result column="inse_invo_invoice_id" property="invoice.invoiceId" javaType="string"/>
         <result column="inse_serv_service_id" property="service.serviceId" javaType="string"/>
     </resultMap>
@@ -99,7 +99,6 @@
             <if test="recordInvoiceId != null and recordInvoiceId != ''">
                AND i.inv_invoice_id = #{recordInvoiceId}
             </if>
-       
         </where>
     </select>
     
@@ -221,7 +220,8 @@
         </where>
     </select>
     
-    <select id="getServicesById" resultMap="ItemServiceResultMap">
+    <!-- *** Este query obtiene un service a partir del serviceId -->
+    <select id="getItemServiceById" resultMap="ItemServiceResultMap">
         <![CDATA[
             SELECT *
               FROM item_service       

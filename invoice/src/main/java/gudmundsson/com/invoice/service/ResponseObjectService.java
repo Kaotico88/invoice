@@ -3,6 +3,7 @@ package gudmundsson.com.invoice.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class ResponseObjectService {
 
 	@Autowired
 	private ClientService clientService;
-
+	
 	public ResponseObjectDto getQueryRecordsA(Optional<String> idType, Optional<String> clientId,
 			Optional<String> billingPeriod, Optional<String> invoiceId, String sessionLogId)
 			throws RepositoryException {
@@ -78,7 +79,7 @@ public class ResponseObjectService {
 
 		if (!"MOBILE".equalsIgnoreCase(client.getCustomerType())) {
 			String inv = invoiceId.get();
-			throw new IllegalArgumentException("El customerType del: " + inv + " no es: 'MOBILE'");
+			throw new IllegalArgumentException("El customerType del invocie con codigo: " + inv + " no es: 'MOBILE'");
 		}
 		invoice.setClient(client);
 
@@ -98,8 +99,8 @@ public class ResponseObjectService {
 
 		List<Client> clients = clientService.getClientsByCustomerIdTypeMOBILE(idType);
 		List<String> clientIds = clients.stream().map(Client::getClientId).collect(Collectors.toList());
-
 		List<Invoice> invoices = new ArrayList<>();
+		
 		for (String clientId : clientIds) {
 			List<Invoice> invoicesClient = rQueryRepository.getInvoicesByClient(Optional.of(clientId), billingPeriod);
 			for (Invoice invoiceClient : invoicesClient) {

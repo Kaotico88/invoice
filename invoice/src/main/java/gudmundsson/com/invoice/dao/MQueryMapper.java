@@ -16,7 +16,7 @@ public interface MQueryMapper {
 	public Client getClientById(@Param("objectId") String objectId) throws RepositoryException;
 //***
 	public Invoice getInvoiceById(@Param("objectId") String objectId) throws RepositoryException;
-	
+//***	
 	public ItemService getItemServiceById(@Param("objectId") String objectId) throws RepositoryException;
 
 //***	
@@ -51,7 +51,5 @@ public interface MQueryMapper {
 	
 //***	
 	public List<ItemService> getServicesByClientId(@Param("recordClientId") String recordClientId) throws RepositoryException;
-	
-	
 				
 }
