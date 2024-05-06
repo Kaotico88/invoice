@@ -2,6 +2,12 @@ package gudmundsson.com.invoice.util;
 
 import org.slf4j.Logger;
 
+/**
+ * AElog
+ *
+ * @author Elio Arias
+ * @since 1.0
+ */
 public class AElog {
 
 	// Los println se deben habilitar solo en ambientes de Desarrollo y/o QA

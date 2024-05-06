@@ -20,7 +20,13 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import gudmundsson.com.invoice.util.AElog;
 
-
+/**
+ * MyBatisConfig
+ *
+ * @author Elio Arias
+ * @since 1.0
+ * @version Revision-2021-07-25
+ */
 @Configuration
 @MapperScan(basePackages = "gudmundsson.com.invoice.dao", sqlSessionFactoryRef = "oneSqlSessionFactory")
 public class MyBatisConfig {

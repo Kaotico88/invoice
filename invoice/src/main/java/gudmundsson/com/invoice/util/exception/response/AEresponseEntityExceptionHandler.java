@@ -23,7 +23,14 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * AEresponseEntityExceptionHandler captures all rest exception to be
+ * customized.
+ *
+ * @author Elio Arias
+ * @since 1.0
+ * @version Revision-2021-07-31
+ */
 @RestControllerAdvice
 public class AEresponseEntityExceptionHandler {
 	

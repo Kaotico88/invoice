@@ -12,6 +12,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * AElog
+ *
+ * @author Elio Arias
+ * @since 1.0
+ */
 public class AEsnippet {
 
 	public static java.sql.Date getCurrentDateSQL() {

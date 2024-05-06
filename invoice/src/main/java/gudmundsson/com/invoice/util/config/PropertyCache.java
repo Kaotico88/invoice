@@ -8,6 +8,12 @@ import org.springframework.stereotype.Component;
 
 import gudmundsson.com.invoice.util.AElog;
 
+/**
+ * PropertyCache
+ *
+ * @author Elio Arias
+ * @since 1.0
+ */
 @Component
 @Configuration
 public class PropertyCache {

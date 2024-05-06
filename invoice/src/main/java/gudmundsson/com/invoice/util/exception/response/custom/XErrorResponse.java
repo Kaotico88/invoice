@@ -8,6 +8,13 @@ import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * XErrorResponse is used to customize the body of the error response.
+ *
+ * @author Elio Arias
+ * @since 1.0
+ * @version LastRevision-2021-07-31
+ */
 public class XErrorResponse {
 
 	@JsonIgnore

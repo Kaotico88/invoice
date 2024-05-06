@@ -1,5 +1,11 @@
 package gudmundsson.com.invoice.util.config;
 
+/**
+ * TimeoutSetup
+ *
+ * @author Elio Arias
+ * @since 1.0
+ */
 public class TimeoutSetup {
 
 	private int connectTimeout;

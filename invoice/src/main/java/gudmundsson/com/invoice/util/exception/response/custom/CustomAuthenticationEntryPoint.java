@@ -19,6 +19,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * CustomAuthenticationEntryPoint
+ **
+ * @author Elio Arias
+ * @since 1.0
+ */
 @Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint{
 

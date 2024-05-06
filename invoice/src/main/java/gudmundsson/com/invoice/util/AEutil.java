@@ -12,6 +12,12 @@ import org.springframework.stereotype.Component;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+/**
+ * AElog
+ *
+ * @author Elio Arias
+ * @since 1.0
+ */
 @Component
 public class AEutil {
 
