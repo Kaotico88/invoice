@@ -66,7 +66,7 @@ public class InvoiceDetailsResource {
 		}
 
 		responseHeaders.set("Custom-Message", "HTTP/1.1 200 Ok");
-		return new ResponseEntity<ResponseInvoiceDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
+		return new ResponseEntity<ResponseInvoiceDto>(responseObj, responseHeaders, HttpStatus.OK);
 
 	}
 	

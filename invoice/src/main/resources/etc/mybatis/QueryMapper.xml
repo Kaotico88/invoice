@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--
- * Rene Marco Gudmundsson Pozo
- * Lizbeth Zorca Montanio Colque gudmundsson.com.invoice.dao
+<!-- ************************************************************************
+ * Written and development by Rene M. Gudmundsson P.
+ * Bolivia-2024
+ * *************************************************************************
  -->
 <mapper namespace="gudmundsson.com.invoice.dao.MQueryMapper">
     <!-- Result Maps -->
@@ -36,7 +37,6 @@
     </resultMap>
 
     <!-- Queries -->
-    
     <!-- *** Este query obtine un client a partir de su campo clientId -->
     <select id="getClientById" resultMap="ClientResultMap">
         <![CDATA[
@@ -47,7 +47,7 @@
                AND clie_client_id = #{objectId}
         </where>
     </select>
-        
+    
     <!-- *** Este query obtiene invoces a partir del campo clientId & billingPeriod-->
     <select id="getInvoicesByClient" resultMap="InvoiceResultMap">
         <![CDATA[
@@ -58,7 +58,7 @@
                AND inv_clie_client_id = #{recordClientId}
                AND inv_billing_period = #{recordBillingPeriod}
         </where>
-    </select>
+    </select>  
     
      <!-- *** Este obtiene el invoice a partir de su campo invoiceId-->
     <select id="getInvoiceById" resultMap="InvoiceResultMap">

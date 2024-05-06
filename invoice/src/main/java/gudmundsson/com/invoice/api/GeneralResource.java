@@ -101,7 +101,7 @@ public class GeneralResource {
 		}
 
 		responseHeaders.set("Custom-Message", "HTTP/1.1 200 Ok");
-		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
+		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.OK);
 
 	}
 
@@ -125,7 +125,7 @@ public class GeneralResource {
 		}
 
 		responseHeaders.set("Custom-Message", "HTTP/1.1 200 Ok");
-		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
+		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.OK);
 
 	}
 
@@ -154,7 +154,7 @@ public class GeneralResource {
 		}
 
 		responseHeaders.set("Custom-Message", "HTTP/1.1 200 Ok");
-		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
+		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.OK);
 
 	}
 
@@ -184,7 +184,7 @@ public class GeneralResource {
 		}
 
 		responseHeaders.set("Custom-Message", "HTTP/1.1 200 Ok");
-		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.ACCEPTED);
+		return new ResponseEntity<ResponseObjectDto>(responseObj, responseHeaders, HttpStatus.OK);
 
 	}
 
