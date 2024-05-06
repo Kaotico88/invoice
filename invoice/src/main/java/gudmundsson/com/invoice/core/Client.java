@@ -2,6 +2,13 @@ package gudmundsson.com.invoice.core;
 
 import java.sql.Date;
 
+/**
+ * Client
+ *
+ * @author Rene Gudmundsson
+ * @since 1.0
+ */
+
 public class Client {
 
 	private String clientId;

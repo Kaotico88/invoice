@@ -6,6 +6,13 @@ import java.util.List;
 import gudmundsson.com.invoice.core.Invoice;
 import gudmundsson.com.invoice.core.ItemService;
 
+/**
+ * ResponseInvoiceDto
+ *
+ * @author Rene Gudmundsson
+ * @since 1.0
+ */
+
 public class ResponseInvoiceDto {
 
 	private Invoice invoice;

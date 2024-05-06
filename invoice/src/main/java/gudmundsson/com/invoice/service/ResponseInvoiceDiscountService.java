@@ -14,6 +14,13 @@ import gudmundsson.com.invoice.core.ItemService;
 import gudmundsson.com.invoice.dao.RQueryRepository;
 import gudmundsson.com.invoice.dto.ResponseInvoiceDto;
 
+
+/**
+ * ResponseInvoiceDiscountService
+ *
+ * @author Rene Gudmundsson
+ * @since 1.0
+ */
 @Service
 public class ResponseInvoiceDiscountService {
 

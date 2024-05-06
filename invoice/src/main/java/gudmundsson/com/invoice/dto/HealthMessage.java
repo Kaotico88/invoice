@@ -2,6 +2,13 @@ package gudmundsson.com.invoice.dto;
 
 import java.time.LocalDateTime;
 
+/**
+ * HealthMessage
+ *
+ * @author Rene Gudmundsson
+ * @since 1.0
+ */
+
 public class HealthMessage {
 
 	private String message;

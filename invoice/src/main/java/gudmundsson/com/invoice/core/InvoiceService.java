@@ -1,5 +1,10 @@
 package gudmundsson.com.invoice.core;
-
+/**
+ * InvoiceService
+ *
+ * @author Rene Gudmundsson
+ * @since 1.0
+ */
 public class InvoiceService {
 
 	private String invservId;

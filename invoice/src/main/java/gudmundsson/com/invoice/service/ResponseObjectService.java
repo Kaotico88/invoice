@@ -14,6 +14,13 @@ import gudmundsson.com.invoice.dto.ResponseObjectDto;
 import gudmundsson.com.invoice.dto.core.Data;
 import gudmundsson.com.invoice.util.exception.RepositoryException;
 
+
+/**
+ * ResponseObjectService
+ *
+ * @author Rene Gudmundsson
+ * @since 1.0
+ */
 @Service
 public class ResponseObjectService {
 

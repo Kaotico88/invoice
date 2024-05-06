@@ -9,6 +9,13 @@ import gudmundsson.com.invoice.core.Client;
 import gudmundsson.com.invoice.core.Invoice;
 import gudmundsson.com.invoice.dao.RQueryRepository;
 
+/**
+ * InvoiceService
+ *
+ * @author Rene Gudmundsson
+ * @since 1.0
+ */
+
 @Service
 public class InvoiceService {
 

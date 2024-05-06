@@ -25,7 +25,7 @@ import gudmundsson.com.invoice.util.exception.response.custom.CustomRuntimeExcep
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
-* Proyecto invoice
+* GeneralResource
 *
 * @author Rene Gudmundsson
 * @since 1.0
