@@ -227,7 +227,7 @@
               FROM item_service       
         ]]>
         <where>
-               AND s.serv_service_id = #{objectId}
+               AND serv_service_id = #{objectId}
         </where>
     </select>
            
